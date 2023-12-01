@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>File Viewer</title>
+</head>
+<body>
+	Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur rerum nihil dolores consequuntur praesentium illum quam dicta ab ipsa sed optio corrupti ut quo reprehenderit reiciendis voluptatem laboriosam, deserunt assumenda!
+	Natus voluptates aut eum repudiandae, dolor magni dignissimos autem porro error modi aliquam nesciunt nam illum repellendus perferendis voluptatum ullam culpa illo deserunt dolores blanditiis? Fuga laboriosam libero architecto nihil.
+</body>
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text&display=swap');
+	:root{
+		background: #030100;
+		color: #ffd4ac;
+		font-family: 'Red Hat Text', sans-serif;
+	}
+</style>
+<script src="/lib/c3nnUtil.js"></script>
+<script>
+	async function getFilee(){
+		let response = await fetch('/style.css');
+		let data = await response.blob();
+		let metadata = {
+			type: 'text/css'
+		};
+		let file = new File([data], "style.css", metadata);
+		let fr = new FileReader();
+		console.log(fr.readAsText(file))
+		// let file = new File("/style.css", "style.css", {type: 'text/css'})
+		console.log(file)
+	}
+	getFilee();
+</script>
+</html>
