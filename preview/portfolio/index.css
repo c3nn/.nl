@@ -1,0 +1,110 @@
+/** Hero */
+#hero{
+	display: flex;
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	align-items: center;
+	justify-content: center;
+}
+#hero h1{
+	/* font-size: 350px; */
+	font-size: calc(0.2*var(--mw));
+	text-align: center;
+	/* width: 80%; */
+	font-family: 'Lobster', sans-serif;
+	font-style: italic;
+	font-weight: 100;
+	margin: 0px;
+	cursor: default;
+}
+@keyframes h1SpanAnimation {
+	0%{bottom: 0px;}
+	50%{bottom: 8px;}
+	100%{bottom: 0px;}
+}
+#hero h1 span{
+	font-size: auto;
+	position: relative;
+	transition: color ease 0.15s;
+	animation: h1SpanAnimation 1.4s infinite ease;
+	animation-delay: calc(0.14s * var(--n));
+}
+#hero h1 .atText{
+	/* font-size: 60px; */
+	/* font-size: 0.2em; */
+	font-size: 30%;
+}
+#hero h1 .atSymbol:hover{
+	color: var(--accent1);
+}
+/* written so that both light up together */
+#hero h1:has(.n1:hover) .n1{ color: var(--rgb0); }
+#hero h1:has(.n2:hover) .n2{ color: var(--rgb4); }
+#hero h1:has(.n3:hover) .n3{ color: var(--rgb3); }
+
+@keyframes heroInfoBelowFade {
+	from{opacity: calc(10 - var(--ScrollY));}
+	to	{opacity: 0;}
+}
+#heroInfoBelow{
+	pointer-events: none;
+	position: absolute;
+	bottom: 0px;
+	text-align: center;
+	animation: heroInfoBelowFade 10s forwards;
+}
+@keyframes heroInfoBelowArrowBounce {
+	0%{bottom: 0px;}
+	50%{bottom: 7px;}
+	100%{bottom: 0px;}
+}
+#heroInfoBelow .symbol{
+	position: relative;
+	animation: heroInfoBelowArrowBounce 1s cubic-bezier(.3,1.5,1,.91) infinite;
+}
+
+/* line decor */
+.lineDecor{
+	border-radius: 15px;
+	border-left: solid 10px var(--c);
+}
+.lineDecor.Reft{
+	border-left: none;
+	border-right: solid 10px var(--c);
+}
+
+/* showcase sections */
+.iframeProjShowcase{
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	width: 100%;
+	height: var(--h, 350px);
+	margin-bottom: 25px;
+}
+.iframeProjShowcase.Right{
+	flex-direction: row-reverse;
+}
+.iframeProjShowcase.Right .text{
+	text-align: right;
+}
+.iframeProjShowcase .iframeCont{
+	width: 55%;
+	height: 100%;
+	border: solid 2px var(--bgAccent1);
+	border-radius: 3px;
+}
+.iframeProjShowcase .text{
+	position: relative;
+	top: -20px;
+	margin-left: 20px;
+	width: 45%;
+	height: auto;
+}
+.iframeProjShowcase .text h2{
+	margin-bottom: 0px;
+}
+.iframeProjShowcase .text .dateMade{
+	margin-top: 0px;
+}
