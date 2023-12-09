@@ -11,56 +11,114 @@
 <body>
 	<div id="mainCont">
 		<main>
+			<section id="heroBg">
+				<canvas id="heroBgCanvas" width="1" height="1"></canvas>
+				<div class="fade"></div>
+			</section>
 			<section id="hero">
 				<h1>
 					<span style="--n: 1;" class="n1">C</span><span style="--n: 2;" class="n2">o</span><span style="--n: 3;">n</span><span style="--n: 4;">m</span><span style="--n: 5;">a</span><span style="--n: 6;" class="n3">n</span><span style="--n: 7;" class="n3">n</span><span style="--n: 8;" class="atText atSymbol" title="c3nn.com | [Please Enable Javascript]@c3n.nl | @c3nn on Youtube, Codepen, and Github">@</span><span style="--n: 9;" class="atText n1">c</span><span style="--n: 10;" class="atText n2">3</span><span style="--n: 11;" class="atText n3">n</span><span style="--n: 12;" class="atText n3">n</span>
 				</h1>
-				<h2 id="enableJS" style="position: absolute;text-align: center;bottom: calc(50svh - 200px);color: var(--bgAccent1);">Please Enable Javascript</h2>
+				<h2 id="enableJS" style="font-size: calc(0.02 * var(--mw)); position: absolute; text-align: center; bottom: calc(50svh - (0.12 * var(--mw))); color: var(--bgAccent1);">Please Enable Javascript</h2>
 				<span id="heroInfoBelow">
 					<span>More Info Below</span><br>
 					<span class="symbol">keyboard_double_arrow_down</span>
 				</span>
+				<span id="heroInfoMenu">
+					<span>Menu</span> <span class="symbol">keyboard_double_arrow_right</span>
+				</span>
+				<div id="heroAccesMenu">
+					<div class="unslantCont">
+						<span>Don't like the cursive font? <input type="button" value="OFF"></span>
+					</div>
+				</div>
 			</section>
+			<div class="pageSpace" style="--h: calc(0.05 * var(--mw));"></div>
 			<section class="lineDecor Left" style="--c: var(--rgb0);">
 				<h1>May I introduce you to my old games?</h1>
 				<section class="iframeProjShowcase Left">
 					<div class="iframeCont">
-						<iframe src="./proj/codepen/100perTextSnake/index.html" frameborder="0" width="100%" height="100%"></iframe>
+						<iframe src="./proj/codepen/100perTextSnake/index.html" tabindex="-1" frameborder="0" width="100%" height="100%"></iframe>
 					</div>
 					<div class="text">
-						<h2>100% text Snake</h2>
+						<h2><a href="https://codepen.io/c3nn/details/xxrPZdR">100% text Snake</a></h2>
 						<p class="dateMade">sep.2021</p>
-						<p>A clasic, and the first game made from my self-taught self.</p>
-					</div>
-				</section>
-				<section class="iframeProjShowcase Left" style="--h: 400px;">
-					<div class="iframeCont">
-						<iframe src="./proj/codepen/Wordle/index.html" frameborder="0" width="200%" height="200%" style="scale: 0.5;position: relative;left: -50%;top: -50%;"></iframe>
-					</div>
-					<div class="text">
-						<h2>Wordle</h2>
-						<p class="dateMade">mar.2022</p>
-						<p>The game that broken the internet. During its peak in popularity I decided to give it a shot and this was the result; math class was never the same.</p>
+						<p>A clasic, and the first game made from my self-taught self. Just press the arrow keys to take over and stop the auto-play.</p>
 					</div>
 				</section>
 				<section class="iframeProjShowcase Left">
 					<div class="iframeCont">
-						<iframe src="./proj/codepen/Sticks/index.html" frameborder="0" width="100%" height="100%"></iframe>
+						<iframe src="./proj/codepen/Wordle/index.html" tabindex="-1" frameborder="0" width="200%" height="200%" style="scale: 0.5;position: relative;left: -50%;top: -50%;"></iframe>
 					</div>
 					<div class="text">
-						<h2>Sticks, Chopsticks, Calculator, etc...</h2>
+						<h2><a href="https://codepen.io/c3nn/details/RwjEOEy">Wordle</a></h2>
+						<p class="dateMade">mar.2022</p>
+						<p>The game that broke the internet. During its peak in popularity I decided to give it a shot and this was the result; math class was never the same.</p>
+					</div>
+				</section>
+				<section class="iframeProjShowcase Left">
+					<div class="iframeCont">
+						<iframe src="./proj/codepen/Sticks/index.html" tabindex="-1" frameborder="0" width="100%" height="100%"></iframe>
+					</div>
+					<div class="text">
+						<h2><a href="https://codepen.io/c3nn/details/abyzzeW">Sticks, Chopsticks, Calculator...</a></h2>
 						<p class="dateMade">oct.2021</p>
 						<p>Ahhh, a playground clasic: now just with real sticks... or as close to sticks as css can get. It may go by many names but we all play the same.</p>
 					</div>
 				</section>
 			</section>
 			<div class="pageSpace"></div>
+			<section class="lineDecor Right" style="--c: var(--rgb4);">
+				<h1>Or maybe some of my Scrollbars?</h1>
+				<section class="iframeProjShowcase Right">
+					<div class="iframeCont">
+						<iframe style="pointer-events: none;" src="./proj/codepen/textScrollbar/" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>
+					</div>
+					<div class="text">
+						<h2><a href="https://codepen.io/c3nn/details/eYRvgGg">text Scrollbar</a></h2>
+						<p class="dateMade">sep.2021</p>
+						<p>My first project on Codepen, man its janky but since I've learned better (but does anyone know how to center a div?).</p>
+					</div>
+				</section>
+				<section class="iframeProjShowcase Right">
+					<div class="iframeCont">
+						<iframe style="pointer-events: none;" src="./proj/codepen/circleScrollbar/" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>
+					</div>
+					<div class="text">
+						<h2><a href="https://codepen.io/c3nn/details/wvroZXo">Circle Scrollbar</a></h2>
+						<p class="dateMade">dec.2021</p>
+						<p>Taken inspiration from a unnamed online store sharing its name with a jungle's support page; I created this and it's somehow the most popular one, which to be fair I never want to work with radians in JS again.</p>
+					</div>
+				</section>
+				<section class="iframeProjShowcase Right">
+					<div class="iframeCont">
+						<iframe style="pointer-events: none;" src="./proj/codepen/scrollbarCubed/" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>
+					</div>
+					<div class="text">
+						<a href="https://codepen.io/c3nn/details/NWadMRG"><h2 id="scrollbarCubed" style="cursor: pointer; width: 75%;margin-left: auto;margin-right: 0;"><span style="--n: 0;">Scrollbar in a </span><span style="--n: 1;">Scrollbar in a </span><span style="--n: 2;">Scrollbar in a </span></h2></a>
+						<p class="dateMade">dec.2021</p>
+						<p>First thing I made in a &ltcanvas&gt and I still don't know how this thing works, but I did learned nesting pretty quickly.</p>
+					</div>
+				</section>
+			</section>
 			<div class="pageSpace"></div>
+			<section class="lineDecor Left Right" style="--c: var(--rgb3);">
+				<div style="display: flex; align-items: center; justify-content: center;">
+					
+				</div>
+			</section>
+			<div class="pageSpace"></div>
+			<script src="./a/3rd/remnentsOfAttraction.js"></script>
+			<div class="pageSpace" style="--h: calc(0.05 * var(--mw));"></div>
 			<footer>
-				<a href="https://github.com/c3nn/.com/blob/redesign/LICENSE">Copyleft <span style="display: inline-block; rotate: 180deg;" title="COPYLEFT SYMBOL">©</span> Conmann 2023 ALL WRONGS RESERVED<span title="check the full license for details">*</span></a>
+				<a href="https://github.com/c3nn/.com/blob/redesign/LICENSE">Copyleft <span style="display: inline-block; rotate: 180deg;" title="COPYLEFT SYMBOL">&copy</span> Conmann 2023 ALL WRONGS RESERVED<span title="check the full license for details">*</span></a>
 				<a href="https://fonts.google.com">Fonts && Icons By Google</a>
-				<span>Favicon & profile art by the <a href="https://www.tumblr.com/mysme-cutie">Yoosung Kim Dedication blog</a><br>Thank you and if asked I will return any favor <span class="symbol" style="position: relative;top: 4px;">favorite</span></span>
-				<span class="symbol buttonHighlight" style="font-size: 30px;" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">arrow_upward_alt</span>
+				<span>Favicon & profile art by the <a href="https://www.tumblr.com/mysme-cutie">Yoosung Kim Dedication blog</a><br>Thank you and if asked I will return any favor <span class="symbol" style="position: relative; top: 4px;">favorite</span></span>
+				<span>Hero Background by <a href="https://e4494s.neocities.org/generative-art-gallery#:~:text=Remnants%20of%20Attraction">e4494s</a></span>
+				<span class="symbol circleButtonHighlight" style="font-size: calc(0.02 * var(--mw));" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">arrow_upward_alt</span>
+				<span class="unslantCont">
+					<span>Don't like the cursive font? <input type="button" value="OFF"></span>
+				</span>
 			</footer>
 		</main>
 	</div>

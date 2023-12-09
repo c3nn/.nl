@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Ephesis&display=swap');
+
+:root{
+	--HeroScrollPer: 0;
+}
+
 /** Hero */
 #hero{
 	display: flex;
@@ -8,10 +14,8 @@
 	justify-content: center;
 }
 #hero h1{
-	/* font-size: 350px; */
 	font-size: calc(0.2*var(--mw));
 	text-align: center;
-	/* width: 80%; */
 	font-family: 'Lobster', sans-serif;
 	font-style: italic;
 	font-weight: 100;
@@ -20,7 +24,7 @@
 }
 @keyframes h1SpanAnimation {
 	0%{bottom: 0px;}
-	50%{bottom: 8px;}
+	50%{bottom: calc(0.005 * var(--mw));}
 	100%{bottom: 0px;}
 }
 #hero h1 span{
@@ -31,8 +35,6 @@
 	animation-delay: calc(0.14s * var(--n));
 }
 #hero h1 .atText{
-	/* font-size: 60px; */
-	/* font-size: 0.2em; */
 	font-size: 30%;
 }
 #hero h1 .atSymbol:hover{
@@ -43,35 +45,85 @@
 #hero h1:has(.n2:hover) .n2{ color: var(--rgb4); }
 #hero h1:has(.n3:hover) .n3{ color: var(--rgb3); }
 
-@keyframes heroInfoBelowFade {
+#heroBg{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: calc(100svh + (0.1 * var(--mw)));
+	z-index: -1;
+}
+#heroBgCanvas{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+#heroBg .fade{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: calc(0.1 * var(--mw));
+	background: linear-gradient(180deg, transparent, var(--bg));
+}
+
+@keyframes heroInfoFade {
 	from{opacity: calc(10 - var(--ScrollY));}
 	to	{opacity: 0;}
 }
-#heroInfoBelow{
+#heroInfoBelow, #heroInfoMenu{
 	pointer-events: none;
 	position: absolute;
 	bottom: 0px;
 	text-align: center;
-	animation: heroInfoBelowFade 10s forwards;
+	animation: heroInfoFade 10s forwards;
 }
 @keyframes heroInfoBelowArrowBounce {
 	0%{bottom: 0px;}
 	50%{bottom: 7px;}
 	100%{bottom: 0px;}
 }
-#heroInfoBelow .symbol{
+#heroInfoBelow .symbol, #heroInfoMenu .symbol{
 	position: relative;
 	animation: heroInfoBelowArrowBounce 1s cubic-bezier(.3,1.5,1,.91) infinite;
+}
+@keyframes heroInfoMenuArrowBounce {
+	0%{left: 0px;}
+	50%{left: 7px;}
+	100%{left: 0px;}
+}
+#heroInfoMenu{
+	bottom: auto;
+	top: 30vh;
+	right: calc(0.08 * var(--mw));
+}
+#heroInfoMenu .symbol{
+	animation-name: heroInfoMenuArrowBounce;
+}
+
+#heroAccesMenu{
+	position: absolute;
+	bottom: calc(-0.03 * var(--mw));
 }
 
 /* line decor */
 .lineDecor{
 	border-radius: 15px;
+}
+.lineDecor.Left{
 	border-left: solid 10px var(--c);
 }
-.lineDecor.Reft{
-	border-left: none;
+.lineDecor.Right{
 	border-right: solid 10px var(--c);
+}
+.lineDecor.Right:not(.Left) h1{
+	text-align: right;
+	padding-right: calc(0.02 * var(--mw));
+}
+.lineDecor.Left.Right h1{
+	text-align: center;
 }
 
 /* showcase sections */
@@ -80,7 +132,7 @@
 	justify-content: left;
 	align-items: center;
 	width: 100%;
-	height: var(--h, 350px);
+	height: var(--h, calc(0.25 * var(--mw)));
 	margin-bottom: 25px;
 }
 .iframeProjShowcase.Right{
@@ -97,14 +149,41 @@
 }
 .iframeProjShowcase .text{
 	position: relative;
-	top: -20px;
-	margin-left: 20px;
+	top: calc(-0.005 * var(--mw));
+	margin-left: calc(0.01 * var(--mw));
 	width: 45%;
 	height: auto;
+}
+.iframeProjShowcase.Right .text{
+	margin-left: 0px;
+	margin-right: calc(0.01 * var(--mw));
 }
 .iframeProjShowcase .text h2{
 	margin-bottom: 0px;
 }
 .iframeProjShowcase .text .dateMade{
 	margin-top: 0px;
+}
+
+/* scrollbar^3 text scrolling effect */
+@keyframes scrollbarCubedSpan {
+	from{left: -50%;}
+	to	{left: 100%;}
+}
+#scrollbarCubed{
+	position: relative;
+	overflow: hidden;
+}
+#scrollbarCubed:after{
+	content: "............................................";
+	color: transparent;
+}
+#scrollbarCubed span{
+	--_items: 3;
+	--_time: 8s;
+	text-wrap: nowrap;
+	position: absolute;
+	top: 0px;
+	animation: scrollbarCubedSpan var(--_time) infinite linear;
+	animation-delay: calc((var(--_time) / var(--_items)) * var(--n) * -1);
 }

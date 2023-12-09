@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Signika+Negative&display=swap');
 @import url("./a/3rd/materialSymbolsRounded.css");
 .symbol{
 	font-variation-settings:
@@ -11,12 +12,13 @@
 }
 
 /*
-	* HAY this is a little area for design guidelines
+	* HAY this is a little area for code / design guidelines
 
 	I. 	capitalize first letter of css --var if controlled by JS
-			ex: --ScrollY
-		Or is a descripter included for another class
-			ex: #hero h1 .Blue{} && #hero h1 .Red{} || #menu.Open && #menu.Closed
+			ex: --HeroScrollPer
+		Or is a descriptor included for another class
+			ex: #hero h1 .Blue{} && #hero h1 .Red{} ||
+				|| #menu.Open && #menu.Closed
 	
 	III. underscore for local variables
 		ex: --_contHeight
@@ -25,17 +27,20 @@
 		(and go darker or lighter whichever feels more natural)
 
 	V.	global.css is for every page, any other css needed for any other
-		page is labled with the same name as the html file of the page
+		page is labeled with the same name as the html file of the page
 
-	VI.	only use !important for testuing purposes or if a bug requires it
+	VI.	only use !important for testing purposes or
+		if a browser bug requires it
+
+	V.	1 letter --vars are set in the html for each element,
+		or uses descriptors from guideline "I."
 */
 
 :root{
 	/* Controlled by JS */
-	--HeroScrollPer: 0;
-	--ScrollY: 0;
+	--ItalicFont: 'Victor Mono';
 
-	/* Colores */
+	/* Colors */
 	--bg: #030100;
 	--bgAccent0: #060606;
 	--bgAccent1: #252525;
@@ -49,17 +54,18 @@
 	--rgb3: #449a31;
 	--rgb4: #106193;
 
-	--mw: min(1600px, 100vw); /* persentage of the main width */
+	--mw: min(1600px, 90vw); /* percentage of the main width */
 
 	background: var(--bg);
 	color: var(--accent0);
 	font-family: 'Red Hat Text', sans-serif;
-	padding: 0px;
-	margin: 0px;
+	padding: 0;
+	margin: 0;
+	overflow-x: hidden;
 }
 body{
-	padding: 0px;
-	margin: 0px;
+	padding: 0;
+	margin: 0;
 }
 #mainCont{
 	display: flex;
@@ -91,8 +97,8 @@ main{
 	to {filter: brightness(1);}
 }
 #loadingLinesCont{
-	top: 0px;
-	left: 0px;
+	top: 0;
+	left: 0;
 	display: flex;
 	flex-direction: column;
 	position: fixed;
@@ -103,7 +109,7 @@ main{
 #loadingLinesCont .line{
 	position: relative;
 	background: var(--c);
-	box-shadow: 0px 1px var(--c);
+	box-shadow: 0 1px var(--c);
 	width: 100%;
 	height: 100%;
 }
@@ -120,6 +126,7 @@ main{
 }
 
 /** Footer */
+/*! todo: redo to use --mw*/
 footer{
 	display: flex;
 	justify-content: space-evenly;
@@ -130,7 +137,43 @@ footer{
 	font-size: 16px;
 	border: solid var(--bgAccent0) 3px;
 	border-bottom: none;
-	border-radius: 14px 14px 0px 0px;
+	border-radius: 14px 14px 0 0;
+}
+/* unslant button/cont (can be used throughout page) */
+.unslantCont{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: calc(0.03 * var(--mw));
+	background: var(--bgAccent0);
+	border-radius: calc(0.01 * var(--mw));
+	font-size: calc(0.01 * var(--mw));
+	transition: filter 0.4s ease;
+}
+.unslantCont span{
+	text-align: center;
+	padding: calc(0.01 * var(--mw));
+	padding-top: 0;
+	padding-bottom: 0;
+	color: var(--bgAccent1);
+}
+.unslantCont input{
+	background: var(--bgAccent1);
+	border: none;
+	border-radius: calc(0.002 * var(--mw));
+	padding: calc(0.002 * var(--mw));
+	font-size: inherit;
+	cursor: pointer;
+}
+.unslantCont:hover, .unslantCont:has(input:focus){
+	filter: brightness(3);
+}
+/* links (can be used throughout page) */
+.socialButton{
+	width: var(--w, ); /*! todo*/
+}
+.socialButton.Youtube{
+
 }
 
 /** Lines */
@@ -165,7 +208,7 @@ footer{
 	position: absolute;
 	animation: linesMove var(--_speed) linear infinite, linesHeight var(--_speed) var(--_lineHeightTimingFunct) infinite;
 	animation-delay: calc(var(--n) * var(--_speed) / var(--_lines));
-	right: 0px;
+	right: 0;
 	transition: width ease 1s;
 }
 #linesCont .line[data-anim="hover"]{
@@ -173,13 +216,13 @@ footer{
 }
 #linesCont .line[data-anim="closed"]{
 	/* --_lineHeightTimingFunct: ease-in; */
-	width: 0px;
+	width: 0;
 	animation: none;
 }
 #linesCont .hoverCont{
 	position: absolute;
-	right: 0px;
-	top: 0px;
+	right: 0;
+	top: 0;
 	/* background: rgba(34, 75, 186, 0.5); */
 	width: 90%;
 	height: 90%;
@@ -190,8 +233,8 @@ footer{
 #linesMenuCont{
 	--_menuOptions: 5;
 	position: fixed;
-	top: 0px;
-	left: 0px;
+	top: 0;
+	left: 0;
 	height: 100%;
 	width: auto;
 	display: flex;
@@ -210,15 +253,15 @@ footer{
 	width: var(--_width);
 	transition:	width 1s cubic-bezier(.07,.5,0,.95),
 				box-shadow 0.2s cubic-bezier(.07,.5,0,.95);
-	box-shadow: inset 0px 0px 0px 0px var(--c);
+	box-shadow: inset 0 0 0 0 var(--c);
 }
 #linesMenuCont .line:hover{
-	box-shadow: inset 0px -4px 0px 0px var(--c);
+	box-shadow: inset 0 -4px 0 0 var(--c);
 	transition:	width 1s cubic-bezier(.07,.5,0,.95),
 				box-shadow 1s cubic-bezier(.07,.5,0,.95);
 }
 @keyframes miniMenuLinesWidthOpen {
-	0%  { width: 0px;				right: 0px; }
+	0%  { width: 0;				right: 0; }
 	100%{ width: var(--_miniWidth);	right: calc(var(--_miniWidth) * -1); }
 }
 @keyframes miniMenuLinesWidth {
@@ -238,13 +281,13 @@ footer{
 	height: calc(100% / var(--_miniLines));
 	background: var(--c);
 	transition: background ease 0.3s;
-	box-shadow:	2px 0px var(--c),
+	box-shadow:	2px 0 var(--c),
 				0px 2px var(--c);
-	border-radius: 0px 3px 3px 0px;
+	border-radius: 0 3px 3px 0;
 }
 #linesMenuCont:has(.line:hover) .line:not(:hover) .miniLine{
 	background: var(--bgAccent1);
-	box-shadow:	3px 0px var(--c),
+	box-shadow:	3px 0 var(--c),
 				0px 2px var(--bgAccent1);
 }
 #linesMenuCont .line:hover .miniLine{
@@ -273,7 +316,7 @@ footer{
 	transition: left 1s cubic-bezier(1,0,.76,.75);
 }
 #linesMenuContCont.Open #linesMenuCont .line{
-	left: 0px;
+	left: 0;
 	transition: left 1s cubic-bezier(.06,.5,0,1.09);
 }
 #linesMenuContCont.Open #linesMenuCont .line .miniLine{
@@ -285,8 +328,8 @@ footer{
 }
 #linesMenuClose{
 	position: fixed;
-	top: 0px;
-	left: 0px;
+	top: 0;
+	left: 0;
 	width: 100%;
 	height: 100%;
 }
@@ -297,17 +340,19 @@ footer{
 /** General */
 .pageSpace{
 	display: flex;
-	width: 0px;
-	height: 200px;
+	width: 0;
+	height: var(--h, 200px);
 }
 a:any-link{
 	color: var(--text);
 	text-decoration: underline wavy;
+	/* text-decoration-thickness: calc(0.002 * var(--mw)); */
+	text-decoration-thickness: 0.1em;
 }
 a:visited{
 	text-decoration-color: var(--accent1);
 }
-h1 a{
+h1 a, h2 a, h3 a{
 	text-decoration: underline;
 	text-decoration-color: var(--bgAccent1);
 }
@@ -319,20 +364,24 @@ h1 a{
 	background: var(--accent1);
 	color: var(--bg);
 }
-.buttonHighlight{
+.circleButtonHighlight{
 	cursor: pointer;
+	transition: background 0.4s ease,
+				outline 0.4s ease;
+	border-radius: 5138008px;
 }
-.buttonHighlight:hover{
+.circleButtonHighlight:hover, .circleButtonHighlight:focus{
 	background: var(--bgAccent1);
 	outline: solid 4px var(--bgAccent1);
-	border-radius: 5138008px;
+	transition: background 0.4s ease,
+				outline 0.3s ease;
 }
 h1, h2, h3{
 	font-size: calc(0.06 * var(--mw));
 	font-family: 'Lobster', sans-serif;
 	font-style: italic;
 	font-weight: 100;
-	margin: 0px;
+	margin: 0;
 	margin-bottom: 20px;
 	cursor: default;
 }
@@ -345,6 +394,6 @@ h3{
 }
 p{
 	font-size: calc(0.015 * var(--mw));
-	font-family: 'Victor Mono';
+	font-family: var(--ItalicFont);
 	font-style: italic;
 }
