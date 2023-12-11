@@ -7,22 +7,9 @@ if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
 	$('#enableJS').remove();
 }
 
-let unslantButtons = $all('.unslantCont input');
-function unslant(){
-	if(css('--ItalicFont') != 'Signika Negative'){
-		unslantButtons.forEach(e => { e.value = 'ON'; });
-		css('--ItalicFont','Signika Negative')
-	}else{
-		unslantButtons.forEach(e => { e.value = 'OFF'; });
-		css('--ItalicFont','')
-	}
-}
-unslantButtons.forEach(element => {
-	element.addEventListener('click',unslant);
-});
-
 window.addEventListener('scroll', (e) => {
 	css('--HeroScrollPer',Math.min(window.scrollY/(window.innerHeight/2),1));
+	css('--ScrollY',window.scrollY);
 });
 
 // 🥚

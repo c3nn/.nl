@@ -1,10 +1,10 @@
 /* 
 * c3nnUtil.js
-* 11/24/2023
+* 12/9/2023
 * Conmann (c3nn.com)
 * https://github.com/c3nn/.com/blob/main/lib/c3nnUtil.js
-* Contains super useful fuctions that I sometimes use
-* if you somehow find this helpful, you can use if you want just don't expect it to be the same for the rest of time
+* Contains super useful functions that I sometimes use
+* If you somehow find this helpful, you can use if you want just don't expect it to be the same for the rest of time
 */
 
 // quick selector
@@ -28,10 +28,7 @@ Element.prototype.css = function(name, val = null, options = {resolveToNum: fals
 	css(name, val, passedOptions)
 };
 
-// String malipulation
-String.prototype.delChar = function(sel){return this.replace(sel,'')};
-
-// Set, get, has, and delete storage types (use filesaver.js if you want)
+// Set, get, has, and delete storage types
 export function setCookie(cname, cvalue, exdays) {
 	const d = new Date();
 	d.setTime(d.getTime() + (exdays*24*60*60*1000));

@@ -2,6 +2,12 @@
 
 :root{
 	--HeroScrollPer: 0;
+	--ScrollY: 0;
+}
+
+/** Lines */
+#linesCont{
+	--_contHeight: calc(70svh - (30svh * var(--HeroScrollPer)));
 }
 
 /** Hero */
@@ -19,13 +25,13 @@
 	font-family: 'Lobster', sans-serif;
 	font-style: italic;
 	font-weight: 100;
-	margin: 0px;
+	margin: 0;
 	cursor: default;
 }
 @keyframes h1SpanAnimation {
-	0%{bottom: 0px;}
+	0%{bottom: 0;}
 	50%{bottom: calc(0.005 * var(--mw));}
-	100%{bottom: 0px;}
+	100%{bottom: 0;}
 }
 #hero h1 span{
 	font-size: auto;
@@ -48,6 +54,8 @@
 #heroBg{
 	position: absolute;
 	top: 0;
+	/* top: calc(var(--ScrollY) / 2 * (0.001 * var(--mw)); */
+	/* opacity: calc(1	 - var(--HeroScrollPer)); */
 	left: 0;
 	width: 100%;
 	height: calc(100svh + (0.1 * var(--mw)));
@@ -76,23 +84,23 @@
 #heroInfoBelow, #heroInfoMenu{
 	pointer-events: none;
 	position: absolute;
-	bottom: 0px;
+	bottom: 0;
 	text-align: center;
 	animation: heroInfoFade 10s forwards;
 }
 @keyframes heroInfoBelowArrowBounce {
-	0%{bottom: 0px;}
-	50%{bottom: 7px;}
-	100%{bottom: 0px;}
+	0%{bottom: 0;}
+	50%{bottom: calc(0.008 * var(--mw));}
+	100%{bottom: 0;}
 }
 #heroInfoBelow .symbol, #heroInfoMenu .symbol{
 	position: relative;
 	animation: heroInfoBelowArrowBounce 1s cubic-bezier(.3,1.5,1,.91) infinite;
 }
 @keyframes heroInfoMenuArrowBounce {
-	0%{left: 0px;}
-	50%{left: 7px;}
-	100%{left: 0px;}
+	0%{left: 0;}
+	50%{left: calc(0.008 * var(--mw));}
+	100%{left: 0;}
 }
 #heroInfoMenu{
 	bottom: auto;
@@ -104,19 +112,23 @@
 }
 
 #heroAccesMenu{
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	position: absolute;
 	bottom: calc(-0.03 * var(--mw));
+	gap: calc(0.005 * var(--mw));
 }
 
 /* line decor */
 .lineDecor{
-	border-radius: 15px;
+	border-radius: calc(0.015 * var(--mw));
 }
 .lineDecor.Left{
-	border-left: solid 10px var(--c);
+	border-left: solid calc(0.01 * var(--mw)) var(--c);
 }
 .lineDecor.Right{
-	border-right: solid 10px var(--c);
+	border-right: solid calc(0.01 * var(--mw)) var(--c);
 }
 .lineDecor.Right:not(.Left) h1{
 	text-align: right;
@@ -133,7 +145,7 @@
 	align-items: center;
 	width: 100%;
 	height: var(--h, calc(0.25 * var(--mw)));
-	margin-bottom: 25px;
+	margin-bottom: calc(0.02 * var(--mw));
 }
 .iframeProjShowcase.Right{
 	flex-direction: row-reverse;
@@ -144,8 +156,8 @@
 .iframeProjShowcase .iframeCont{
 	width: 55%;
 	height: 100%;
-	border: solid 2px var(--bgAccent1);
-	border-radius: 3px;
+	border: solid calc(0.002 * var(--mw)) var(--bgAccent1);
+	border-radius: calc(0.005 * var(--mw));
 }
 .iframeProjShowcase .text{
 	position: relative;
@@ -155,14 +167,14 @@
 	height: auto;
 }
 .iframeProjShowcase.Right .text{
-	margin-left: 0px;
+	margin-left: 0;
 	margin-right: calc(0.01 * var(--mw));
 }
 .iframeProjShowcase .text h2{
-	margin-bottom: 0px;
+	margin-bottom: 0;
 }
 .iframeProjShowcase .text .dateMade{
-	margin-top: 0px;
+	margin-top: 0;
 }
 
 /* scrollbar^3 text scrolling effect */
@@ -183,7 +195,7 @@
 	--_time: 8s;
 	text-wrap: nowrap;
 	position: absolute;
-	top: 0px;
+	top: 0;
 	animation: scrollbarCubedSpan var(--_time) infinite linear;
 	animation-delay: calc((var(--_time) / var(--_items)) * var(--n) * -1);
 }

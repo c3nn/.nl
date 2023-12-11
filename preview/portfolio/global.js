@@ -1,4 +1,5 @@
-import { $, $all, css } from "./lib/c3nnUtil.js";
+import { $, $all, css, deleteCookie, hasCookie, setCookie } from "./lib/c3nnUtil.js";
+const prefersContrast = window.matchMedia(`(prefers-contrast: more)`) === true || window.matchMedia(`(prefers-contrast: more)`).matches === true;
 
 //* Setup
 window.addEventListener('load', (e) => {
@@ -47,7 +48,7 @@ linesHoverCont.addEventListener('click', (e) => {
 			1800
 		);
 		element.addEventListener('animationiteration', (e) => {
-			// starts negative so it plays aninimation before page loads and uses --n2 after menu opens
+			// starts negative so it plays animation before page loads and uses --n2 after menu opens
 			element.css('--n','var(--n2)');
 		}, {once: true});
 	});
@@ -83,3 +84,62 @@ $('#linesMenuClose').addEventListener('click', () => {
 		element.dataset.anim = '';
 	});
 });
+
+// 🥚
+$('#spinStarEgg').addEventListener('contextmenu',(e) => {
+	e.preventDefault();
+	$('#spinStarEgg').title = 'weeeee!'
+	$('#spinStarEgg').animate(
+		[
+			{
+				rotate: '20deg',
+				easing: 'cubic-bezier(.3,1,1,1)',
+			},
+			{
+				rotate: '380deg',
+			}
+		],
+		1000
+	);
+});
+
+let unslantButtons = $all('.accesCont.Unslant input');
+function toggleUnslant(){
+	if(css('--ItalicFont') != 'Signika Negative'){
+		unslantButtons.forEach(e => { e.value = 'ON'; });
+		css('--ItalicFont','Signika Negative');
+		setCookie('accesUnslant','true');
+	}else{
+		unslantButtons.forEach(e => { e.value = 'OFF'; });
+		css('--ItalicFont','');
+		deleteCookie('accesUnslant');
+	}
+}
+unslantButtons.forEach(element => {
+	element.addEventListener('click',toggleUnslant);
+});
+if(hasCookie('accesUnslant') == true){
+	toggleUnslant();
+}
+
+let contrastButtons = $all('.accesCont.Contrast input');
+function toggleContrast(){
+	// $(':root').dataset.contrast
+	if($(':root').dataset.contrast != "true"){
+		contrastButtons.forEach(e => { e.value = 'ON'; });
+		$(':root').dataset.contrast = true;
+		if(prefersContrast != true){
+			setCookie('accesContrast','true');
+		}
+	}else{
+		contrastButtons.forEach(e => { e.value = 'OFF'; });
+		delete $(':root').dataset.contrast;
+		deleteCookie('accesContrast');
+	}
+}
+contrastButtons.forEach(element => {
+	element.addEventListener('click',toggleContrast);
+});
+if(hasCookie('accesContrast') == true || prefersContrast == true){
+	toggleContrast();
+}
