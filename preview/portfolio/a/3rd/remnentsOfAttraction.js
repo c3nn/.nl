@@ -26,7 +26,6 @@ let opacity = 0.25;
 let edgeSpawning = true;
 let stepsPerFrame = 100000;
 let spawningVelocity = 4;
-let colorVariation = 0;
 
 function randCanvasEdgePos() {
   let r = Math.floor(Math.random() * 4);

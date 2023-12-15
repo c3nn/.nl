@@ -118,6 +118,15 @@
 	position: absolute;
 	bottom: calc(-0.03 * var(--mw));
 	gap: calc(0.005 * var(--mw));
+	border-radius: 5318008px;
+	background: var(--bgAccent1);
+	overflow: visible;
+}
+#heroAccesMenu .symbol{
+	font-size: 100%;
+}
+:root[data-contrast] * #heroAccesMenu .symbol{
+	color: var(--bgAccent0);
 }
 
 /* line decor */
@@ -198,4 +207,12 @@
 	top: 0;
 	animation: scrollbarCubedSpan var(--_time) infinite linear;
 	animation-delay: calc((var(--_time) / var(--_items)) * var(--n) * -1);
+}
+
+@media screen and ((max-width: 639px) or (pointer:none) or (pointer:coarse)) {
+	
+	#linesCont{
+		--_contHeight: 100svh;
+	}
+
 }

@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@1,500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Signika+Negative&display=swap');
-@import url("./a/3rd/materialSymbolsRounded.css");
+@import url("/a/3rd/materialSymbolsRounded.css");
 .symbol{
 	font-variation-settings:
 	'FILL' 0,
@@ -41,7 +41,8 @@
 */
 
 :root{
-	/* Controlled by JS */
+	/* Controlled / used by JS */
+	--Mobile: false;
 	--ItalicFont: 'Victor Mono';
 
 	/* Colors */
@@ -50,7 +51,6 @@
 	--bgAccent1: #252525;
 	--accent0: #ffd4ac;
 	--accent1: #d8a473;
-	--accentDark0: #453a2f;
 	--text: var(--accent0);
 	--rgb0: #c71b1b;
 	--rgb1: #cd732a;
@@ -73,7 +73,7 @@
 	--bgAccent1: #fff;
 	--text: #fff;
 }
-:root[data-contrast] * .accesCont:hover, :root[data-contrast] * .accesCont:has(input:focus){
+:root[data-contrast] * :is(.accesCont:hover, .accesCont:has(input:focus), .socialButton:hover, .socialButton:focus){
 	filter: none !important;
 }
 body{
@@ -86,6 +86,9 @@ body{
 	width: 100%;
 }
 main{
+	/* stops bug where random padding? (i think) makes a random margin
+	to the right of the page (on mobile especially)  */
+	overflow-x: hidden;
 	width: var(--mw);
 }
 ::-webkit-scrollbar{
@@ -215,12 +218,12 @@ footer{
 	--_lines: 5;
 	--_width: 30vw;
 	--_contHeight: 40svh;
-	--_lineHeightTimingFunct: cubic-bezier(.55,1.4,.69,.17);
+	--_lineWidthTimingFunct: cubic-bezier(.55,1.4,.69,.17);
 	width: var(--_width);
 	height: var(--_contHeight);
 	position: fixed;
 	top: 0;
-	right: 0;
+	right: 0px;
 	pointer-events: none;
 }
 #linesCont *{
@@ -230,25 +233,24 @@ footer{
 	0%	 {bottom: 100%;}
 	100% {bottom: 0%;}
 }
-@keyframes linesHeight {
+@keyframes linesWidth {
 	0%	 {width: var(--_width);}
 	100% {width: 0;}
 }
 #linesCont .line{
-	--_height: calc(100% / (var(--_lines)));
+	--_height: calc(100% / var(--_lines));
 	background: var(--c);
 	height: var(--_height);
 	position: absolute;
-	animation: linesMove var(--_speed) linear infinite, linesHeight var(--_speed) var(--_lineHeightTimingFunct) infinite;
+	animation: linesMove var(--_speed) linear infinite, linesWidth var(--_speed) var(--_lineWidthTimingFunct) infinite;
 	animation-delay: calc(var(--n) * var(--_speed) / var(--_lines));
 	right: 0;
 	transition: width ease 1s;
 }
 #linesCont .line[data-anim="hover"]{
-	--_lineHeightTimingFunct: ease-in;
+	--_lineWidthTimingFunct: ease-in;
 }
 #linesCont .line[data-anim="closed"]{
-	/* --_lineHeightTimingFunct: ease-in; */
 	width: 0;
 	animation: none;
 }
@@ -290,7 +292,7 @@ footer{
 	box-shadow: -500px 0 0 0 var(--bgAccent0),
 				inset 0 0 0 0 var(--c);
 }
-#linesMenuCont .line:hover{
+#linesMenuCont .line:hover, #linesMenuCont .line:focus{
 	box-shadow: -500px 0 0 0 var(--bgAccent0),
 				inset 0 -4px 0 0 var(--c);
 	transition:	width 1s cubic-bezier(.07,.5,0,.95),
@@ -369,6 +371,9 @@ footer{
 	width: 100%;
 	height: 100%;
 }
+#linesMenuClose .symbol{
+	display: none;
+}
 #linesMenuContCont.Closed #linesMenuClose{
 	display: none;
 }
@@ -378,6 +383,9 @@ footer{
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+.flexTemplate.Column{
+	flex-direction: column;
 }
 .pageSpace{
 	display: flex;
@@ -435,4 +443,79 @@ p{
 	font-size: calc(0.015 * var(--mw));
 	font-family: var(--ItalicFont);
 	font-style: italic;
+}
+
+/** Mobile */
+@media screen and ((max-width: 639px) or (pointer:none) or (pointer:coarse)) {
+	:root{
+		--Mobile: true;
+	}
+	
+	#linesCont{
+		--_lineWidthTimingFunct: cubic-bezier(0,1.3,1,.3);
+		--_width: 1.5vw;
+	}
+	@keyframes linesMove {
+		0%	 {bottom: 100%;}
+		100% {bottom: calc(var(--_height) * -1);}
+	}
+	@keyframes linesWidth {
+		0%	 {width: var(--_width);}
+		100% {width: var(--_width);}
+	}
+	#linesCont .line{
+		--_height: calc(100% / (var(--_lines) - 1));
+		overflow: hidden;
+	}
+	#linesCont .hoverCont{
+		height: 100%;
+		width: calc(3 * var(--_width));
+	}
+
+	#linesMenuCont .line .miniLine{
+		display: none;
+	}
+	#linesMenuCont .line{
+		--_width: 100vw;
+		box-shadow: -500px 0 0 0 var(--bgAccent0),
+					inset 0 -4px 0 0 var(--c);
+		transition:	width 1s cubic-bezier(.07,.5,0,.95),
+					box-shadow 1s cubic-bezier(.07,.5,0,.95);
+	}
+	#linesMenuContCont.Open #linesMenuCont .line{
+		left: 0;
+		transition: left 1s cubic-bezier(.06,.5,0,1);
+	}
+	#linesMenuCont .line a{
+		text-align: center;
+	}
+	#linesMenuCont .line a::after{
+		content: "";
+	}
+	#linesMenuClose{
+		position: fixed;
+		top: 0;
+		left: 0;
+		height: 3vh;
+		width: 100vw;
+		z-index: 2;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+	}
+	#linesMenuClose .symbol{
+		display: block;
+		font-size: 3vh;
+		padding-top: 1vh;
+		position: relative;
+	}
+	@keyframes linesMenuCloseSymbol {
+		0%	 {top: -4vh;}
+		100% {top: 0vh;}
+	}
+	#linesMenuContCont.Open #linesMenuClose .symbol{
+		animation: linesMenuCloseSymbol 1s ease forwards;
+	}
+
 }

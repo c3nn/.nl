@@ -1,4 +1,4 @@
-import { $, $all, css } from "./lib/c3nnUtil.js";
+import { $, css } from "/lib/c3nnUtil.js";
 
 if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
 	$('#enableJS').innerHTML = '( please use a chromium based browser for the best experience or a firefox version >120 )';

@@ -3,9 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Conmann @c3nn / Projects</title>
-	<link rel="shortcut icon" href="./a/favicon.png" type="image/x-icon">
-	<link rel="stylesheet" href="./global.css">
+	<title>Conmann @c3nn</title>
+	<link rel="shortcut icon" href="/a/favicon.png" type="image/x-icon">
+	<link rel="stylesheet" href="/global.css">
 </head>
 <body>
 	<div id="mainCont">
@@ -49,11 +49,14 @@
 						<span id="spinStarEgg" class="symbol" title="★ Recommended ★" style="position: absolute; color: var(--rgb2); top: -10%; right: -20%; rotate: 20deg;">star</span>
 					</a>
 				</div>
-				<div class="flexTemplate">
-					<span class="symbol circleButtonHighlight" style="font-size: calc(0.02 * var(--mw)); margin-right: calc(0.01 * var(--mw)); padding: calc(0.01 * var(--mw)); padding-top: 0; padding-bottom: 0;" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">arrow_upward_alt</span>
-					<span class="unslantCont">
-						<span>Don't like the cursive font? <input type="button" value="OFF"></span>
-					</span>
+				<div class="flexTemplate" style="gap: calc(0.005 * var(--mw));">
+					<span class="symbol circleButtonHighlight" style="font-size: calc(0.02 * var(--mw)); padding: calc(0.01 * var(--mw)); padding-top: 0; padding-bottom: 0;" tabindex=0 onclick="window.scrollTo({top: 0, behavior: 'smooth'});">arrow_upward_alt</span>
+					<div class="accesCont Unslant">
+						<span>Cursive font? <input type="button" value="OFF"></span>
+					</div>
+					<div class="accesCont Contrast">
+						<span>Reduced contrast? <input type="button" value="OFF"></span>
+					</div>
 				</div>
 				<a href="https://github.com/c3nn/.com/blob/redesign/LICENSE">Copyleft <span style="display: inline-block; rotate: 180deg;" title="COPYLEFT SYMBOL">&copy</span> Conmann 2023 ALL WRONGS RESERVED<span title="check the full license for details">*</span></a>
 				<a href="https://fonts.google.com">Fonts && Icons By Google</a>
@@ -74,35 +77,35 @@
 		<div id="linesMenuClose"></div>
 		<div id="linesMenuCont">
 			<div class="line" style="--n: 0; --c: var(--rgb0);">
-				<a href="./">Home</a>
+				<a href="/">Home</a>
 				<div class="miniLine" style="--tn: 0; --ln: 0;"></div>
 				<div class="miniLine" style="--tn: 1; --ln: 1;"></div>
 				<div class="miniLine" style="--tn: 2; --ln: 2;"></div>
 				<div class="miniLine" style="--tn: 3; --ln: 3;"></div>
 			</div>
 			<div class="line" style="--n: -1; --c: var(--rgb1);">
-				<a href="./projects">Projects</a>
+				<a href="/projects">Projects</a>
 				<div class="miniLine" style="--tn: 4; --ln: 0;"></div>
 				<div class="miniLine" style="--tn: 5; --ln: 1;"></div>
 				<div class="miniLine" style="--tn: 6; --ln: 2;"></div>
 				<div class="miniLine" style="--tn: 7; --ln: 3;"></div>
 			</div>
 			<div class="line" style="--n: -2; --c: var(--rgb2);">
-				<a href="./media">Media</a>
+				<a href="/media">Media</a>
 				<div class="miniLine" style="--tn: 8; --ln: 0;"></div>
 				<div class="miniLine" style="--tn: 9; --ln: 1;"></div>
 				<div class="miniLine" style="--tn: 10; --ln: 2;"></div>
 				<div class="miniLine" style="--tn: 11; --ln: 3;"></div>
 			</div>
 			<div class="line" style="--n: -3; --c: var(--rgb3);">
-				<a href="./">Lorem</a>
+				<a href="/">Lorem</a>
 				<div class="miniLine" style="--tn: 12; --ln: 0;"></div>
 				<div class="miniLine" style="--tn: 13; --ln: 1;"></div>
 				<div class="miniLine" style="--tn: 14; --ln: 2;"></div>
 				<div class="miniLine" style="--tn: 15; --ln: 3;"></div>
 			</div>
 			<div class="line" style="--n: -4; --c: var(--rgb4);">
-				<a href="./">Ipsom</a>
+				<a href="/">Ipsom</a>
 				<div class="miniLine" style="--tn: 16; --ln: 0;"></div>
 				<div class="miniLine" style="--tn: 17; --ln: 1;"></div>
 				<div class="miniLine" style="--tn: 18; --ln: 2;"></div>
@@ -117,6 +120,6 @@
 		<div class="line" style="--c: var(--rgb3);"></div>
 		<div class="line" style="--c: var(--rgb4);"></div>
 	</div>
-	<script type="module" src="./global.js"></script>
+	<script type="module" src="/global.js"></script>
 </body>
 </html>

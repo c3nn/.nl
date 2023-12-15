@@ -1,4 +1,4 @@
-import { $, $all, css, deleteCookie, hasCookie, setCookie } from "./lib/c3nnUtil.js";
+import { $, $all, css, deleteCookie, hasCookie, setCookie } from "/lib/c3nnUtil.js";
 const prefersContrast = window.matchMedia(`(prefers-contrast: more)`) === true || window.matchMedia(`(prefers-contrast: more)`).matches === true;
 
 //* Setup
@@ -47,6 +47,20 @@ linesHoverCont.addEventListener('click', (e) => {
 			],
 			1800
 		);
+		if(css("--Mobile") == 'true'){
+			element.animate(
+				[
+					{
+						width: getComputedStyle(element).width,
+						easing: 'cubic-bezier(1,0,.9,.7)',
+					},
+					{
+						width: '0px',
+					}
+				],
+				1800
+			);
+		}
 		element.addEventListener('animationiteration', (e) => {
 			// starts negative so it plays animation before page loads and uses --n2 after menu opens
 			element.css('--n','var(--n2)');
