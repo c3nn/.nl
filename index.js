@@ -1,6 +1,6 @@
 import { $, css } from "/lib/c3nnUtil.js";
 
-if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+if(css('--SupportsCSSHasSelector') != "true"){
 	$('#enableJS').innerHTML = '( please use a chromium based browser for the best experience or a firefox version >120 )';
 	setInterval(() => {$('#enableJS').remove();}, 10000);
 }else{

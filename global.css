@@ -58,7 +58,9 @@
 	--rgb3: #449a31;
 	--rgb4: #106193;
 
-	--mw: min(1300px, 90vw); /* percentage of the main width */
+	--mw: min(1300px, 90vw); /* % of the main width */
+	--mwt: var(--mw);	/* % of the main width changed to static px
+						when using mobile (for use only on font-size) */
 
 	background: var(--bg);
 	color: var(--text);
@@ -75,6 +77,11 @@
 }
 :root[data-contrast] * :is(.accesCont:hover, .accesCont:has(input:focus), .socialButton:hover, .socialButton:focus){
 	filter: none !important;
+}
+@supports selector(:has(*)) {
+	:root{
+		--SupportsCSSHasSelector: true;
+	}
 }
 body{
 	padding: 0;
@@ -150,7 +157,7 @@ footer{
 	row-gap: calc(0.02 * var(--mw));
 	height: auto;
 	padding: calc(0.01 * var(--mw));
-	font-size: calc(0.015 * (var(--mw)));
+	font-size: calc(0.015 * (var(--mwt)));
 	border: solid var(--bgAccent0) calc(0.005 * var(--mw));
 	border-bottom: none;
 	border-radius: calc(0.03 * var(--mw)) calc(0.03 * var(--mw)) 0 0;
@@ -164,7 +171,7 @@ footer{
 	height: calc(0.03 * var(--mw));
 	background: var(--bgAccent0);
 	border-radius: calc(0.01 * var(--mw));
-	font-size: calc(0.01 * var(--mw));
+	font-size: calc(0.01 * var(--mwt));
 	transition: filter 0.4s ease;
 }
 .accesCont span{
@@ -424,7 +431,7 @@ h1 a, h2 a, h3 a{
 	filter: brightness(3);
 }
 h1, h2, h3{
-	font-size: calc(0.06 * var(--mw));
+	font-size: calc(0.06 * var(--mwt));
 	font-family: 'Lobster', sans-serif;
 	font-style: italic;
 	font-weight: 100;
@@ -433,22 +440,24 @@ h1, h2, h3{
 	cursor: default;
 }
 h2, h3{
-	font-size: calc(0.03 * var(--mw));
+	font-size: calc(0.03 * var(--mwt));
 	margin-bottom: calc(0.03 * var(--mw));
 }
 h3{
-	font-size: calc(0.02 * var(--mw));
+	font-size: calc(0.02 * var(--mwt));
 }
 p{
-	font-size: calc(0.015 * var(--mw));
+	font-size: calc(0.015 * var(--mwt));
 	font-family: var(--ItalicFont);
 	font-style: italic;
 }
 
 /** Mobile */
-@media screen and ((max-width: 639px) or (pointer:none) or (pointer:coarse)) {
+@media screen and ((orientation: portrait) or (pointer: none) or (pointer: coarse)) {
+	
 	:root{
 		--Mobile: true;
+		--mwt: 1000px;
 	}
 	
 	#linesCont{

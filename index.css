@@ -209,10 +209,26 @@
 	animation-delay: calc((var(--_time) / var(--_items)) * var(--n) * -1);
 }
 
-@media screen and ((max-width: 639px) or (pointer:none) or (pointer:coarse)) {
-	
+@media screen and ((orientation: portrait) or (pointer: none) or (pointer: coarse)) {
+
 	#linesCont{
 		--_contHeight: 100svh;
+	}
+
+	.iframeProjShowcase, .iframeProjShowcase.Right{
+		flex-direction: column;
+		height: auto;
+	}
+	.iframeProjShowcase .text{
+		width: 100%;
+	}
+
+	#scrollbarCubed:after{
+		content: "";
+	}
+	#scrollbarCubed span{
+		position: static;
+		animation: none;
 	}
 
 }
