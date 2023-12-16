@@ -457,7 +457,7 @@ p{
 	
 	:root{
 		--Mobile: true;
-		--mwt: 1000px;
+		--mwt: 600px;
 	}
 	
 	#linesCont{
