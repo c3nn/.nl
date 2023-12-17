@@ -38,11 +38,14 @@
 
 	VI.	use calc(_.__ * var(--mw)) in place of px when applicable in <main>
 		exceptions are things like border-radius with % looking weird
+
+	VII. use --mwt in place of --mw when in font-size or text related
 */
 
 :root{
 	/* Controlled / used by JS */
 	--Mobile: false;
+	--SupportsCSSHasSelector: false;
 	--ItalicFont: 'Victor Mono';
 
 	/* Colors */
@@ -59,7 +62,7 @@
 	--rgb4: #106193;
 
 	--mw: min(1300px, 90vw); /* % of the main width */
-	--mwt: var(--mw);	/* % of the main width changed to static px
+	--mwt: var(--mw);	/* % of the main width changed to a static value
 						when using mobile (for use only on font-size) */
 
 	background: var(--bg);
@@ -146,77 +149,6 @@ main{
 	animation: loadingLinesFinishedFall 1s cubic-bezier(1,.31,.91,.98) forwards,
 	loadingLinesFinishedBrightness 0.5s ease-in forwards;
 	animation-delay: 0s;
-}
-
-/** Footer */
-footer{
-	text-align: center;
-	align-items: center;
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	row-gap: calc(0.02 * var(--mw));
-	height: auto;
-	padding: calc(0.01 * var(--mw));
-	font-size: calc(0.015 * (var(--mwt)));
-	border: solid var(--bgAccent0) calc(0.005 * var(--mw));
-	border-bottom: none;
-	border-radius: calc(0.03 * var(--mw)) calc(0.03 * var(--mw)) 0 0;
-	color: var(--bgAccent1);
-}
-/* accesCont button/cont (can be used throughout page) */
-.accesCont{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: calc(0.03 * var(--mw));
-	background: var(--bgAccent0);
-	border-radius: calc(0.01 * var(--mw));
-	font-size: calc(0.01 * var(--mwt));
-	transition: filter 0.4s ease;
-}
-.accesCont span{
-	text-align: center;
-	padding: calc(0.01 * var(--mw));
-	padding-top: 0;
-	padding-bottom: 0;
-	color: var(--bgAccent1);
-}
-.accesCont input{
-	background: var(--bgAccent1);
-	border: none;
-	border-radius: calc(0.002 * var(--mw));
-	padding: calc(0.002 * var(--mw));
-	font-size: inherit;
-	cursor: pointer;
-}
-.accesCont:hover, .accesCont:has(input:focus){
-	filter: brightness(3);
-}
-/* social links */
-.socialButton{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: var(--w, calc(0.03 * var(--mw)));
-	aspect-ratio: 1/1;
-	background: var(--bgAccent1);
-	fill: var(--bgAccent0);
-	border-radius: calc(0.004 * var(--mw));
-	transition: filter 0.4s ease;
-}
-.socialButton:hover,.socialButton:focus{
-	filter: brightness(3);
-}
-.socialButton .symbol{
-	transition: filter 0.4s ease;
-}
-:is(.socialButton:hover, .socialButton:focus) .symbol{
-	filter: brightness(calc(1/3));
-	text-shadow: 0 0 calc(0.02 * var(--mw)) #fff;
-}
-.socialButton svg{
-	height: 90%;
-	aspect-ratio: 1/1;
 }
 
 /** Lines */
@@ -385,6 +317,77 @@ footer{
 	display: none;
 }
 
+/** Footer */
+footer{
+	text-align: center;
+	align-items: center;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	row-gap: calc(0.02 * var(--mw));
+	height: auto;
+	padding: calc(0.01 * var(--mw));
+	font-size: calc(0.015 * (var(--mwt)));
+	border: solid var(--bgAccent0) calc(0.005 * var(--mw));
+	border-bottom: none;
+	border-radius: calc(0.03 * var(--mw)) calc(0.03 * var(--mw)) 0 0;
+	color: var(--bgAccent1);
+}
+/* accesCont button/cont (can be used throughout page) */
+.accesCont{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: calc(0.03 * var(--mw));
+	background: var(--bgAccent0);
+	border-radius: calc(0.01 * var(--mw));
+	font-size: calc(0.01 * var(--mwt));
+	transition: filter 0.4s ease;
+}
+.accesCont span{
+	text-align: center;
+	padding: calc(0.01 * var(--mw));
+	padding-top: 0;
+	padding-bottom: 0;
+	color: var(--bgAccent1);
+}
+.accesCont input{
+	background: var(--bgAccent1);
+	border: none;
+	border-radius: calc(0.002 * var(--mw));
+	padding: calc(0.002 * var(--mw));
+	font-size: inherit;
+	cursor: pointer;
+}
+.accesCont:hover, .accesCont:has(input:focus){
+	filter: brightness(3);
+}
+/* social links */
+.socialButton{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: var(--w, calc(0.03 * var(--mw)));
+	aspect-ratio: 1/1;
+	background: var(--bgAccent1);
+	fill: var(--bgAccent0);
+	border-radius: 15%;
+	transition: filter 0.4s ease;
+}
+.socialButton:hover,.socialButton:focus{
+	filter: brightness(3);
+}
+.socialButton .symbol{
+	transition: filter 0.4s ease;
+}
+:is(.socialButton:hover, .socialButton:focus) .symbol{
+	filter: brightness(calc(1/3));
+	text-shadow: 0 0 calc(0.02 * var(--mw)) #fff;
+}
+.socialButton svg{
+	height: 90%;
+	aspect-ratio: 1/1;
+}
+
 /** General */
 .flexTemplate{
 	display: flex;
@@ -453,16 +456,19 @@ p{
 }
 
 /** Mobile */
-@media screen and ((orientation: portrait) or (pointer: none) or (pointer: coarse)) {
+/* @media screen and ((orientation: portrait) or (pointer: none) or (pointer: coarse)) { */
+@media screen and (orientation: portrait) {
 	
 	:root{
 		--Mobile: true;
-		--mwt: 600px;
+		--mwt: 80svh;
 	}
 	
+	/* Lines */
 	#linesCont{
 		--_lineWidthTimingFunct: cubic-bezier(0,1.3,1,.3);
 		--_width: 1.5vw;
+		--_contHeight: 100svh;
 	}
 	@keyframes linesMove {
 		0%	 {bottom: 100%;}
@@ -481,6 +487,7 @@ p{
 		width: calc(3 * var(--_width));
 	}
 
+	/** Lines Menu */
 	#linesMenuCont .line .miniLine{
 		display: none;
 	}
@@ -525,6 +532,20 @@ p{
 	}
 	#linesMenuContCont.Open #linesMenuClose .symbol{
 		animation: linesMenuCloseSymbol 1s ease forwards;
+	}
+
+	/** Footer */
+	footer{
+		grid-template-columns: 1fr;
+		font-size: calc(0.025 * (var(--mwt)));
+		gap: calc(0.05 * var(--mw));
+		border: none;
+		border-top: solid var(--bgAccent1) calc(0.02 * var(--mwt));
+		border-radius: 0;
+	}
+	/* social links */
+	.socialButton{
+		width: calc(0.05 * var(--mwt));
 	}
 
 }
