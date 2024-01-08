@@ -1,6 +1,7 @@
 :root{
 	--HeroScrollPer: 0;
 	--ScrollY: 0;
+	background-position: 0 112vh;
 }
 
 /** Lines */
@@ -114,8 +115,8 @@
 	justify-content: center;
 	align-items: center;
 	position: absolute;
-	bottom: calc(-0.03 * var(--mw));
-	gap: calc(0.005 * var(--mw));
+	top: 100svh;
+	gap: calc(0.005 * var(--mwt));
 	border-radius: 5318008px;
 	background: var(--bgAccent1);
 	overflow: visible;
@@ -125,6 +126,11 @@
 }
 :root[data-contrast] * #heroAccesMenu .symbol{
 	color: var(--bgAccent0);
+}
+#heroAccesMenuMargin{
+	--_scale: 1;
+	--_mwt: calc(var(--mwt) * var(--_scale));
+	--h: calc(0.05 * var(--_mwt));
 }
 
 /* line decor */
@@ -194,19 +200,21 @@
 	height: 100%;
 	width: 100%;
 	background: #00000020;
+	/* background-image: url('a/materialSymbols[-/+].svg'); */
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
 	backdrop-filter: blur(3px);
 	-webkit-backdrop-filter: blur(3px);
-	font-size: 150%;
-	text-align: center;
-	font-family: 'Red Hat Text', sans-serif;
-	color: #ffffff;
 	border: none;
 }
 .iframeProjShowcase .iframeCont .zoomCont .minus{
 	border-radius: 20% 0 0 20%;
+	background-image: url('a/materialSymbolsRemove.svg');
 }
 .iframeProjShowcase .iframeCont .zoomCont .plus{
 	border-radius: 0 20% 20% 0;
+	background-image: url('a/materialSymbolsAdd.svg');
 }
 .iframeProjShowcase .text{
 	position: relative;
@@ -225,7 +233,6 @@
 .iframeProjShowcase .text .dateMade{
 	margin-top: 0;
 }
-
 
 /* scrollbar^3 text scrolling effect */
 @keyframes scrollbarCubedSpan {
@@ -263,24 +270,11 @@
 	.iframeProjShowcase .text{
 		width: 100%;
 	}
-	.iframeProjShowcase .iframeCont:not(.DoubleRes){
+	.iframeProjShowcase .iframeCont{
 		position: relative;
 		height: auto;
 		width: 100%;
 		aspect-ratio: 16/9;
-	}
-	.iframeProjShowcase .iframeCont:not(.DoubleRes) iframe{
-		/* scale: 0.25;
-		width: 400%;
-		height: 400%;
-		top: -150%;
-		left: -150%; */
-		position: absolute;
-		scale: 0.5;
-		width: 200%;
-		height: 200%;
-		top: -50%;
-		left: -50%;
 	}
 
 	#scrollbarCubed:after{
@@ -291,4 +285,7 @@
 		animation: none;
 	}
 
+	#heroAccesMenuMargin{
+		--_scale: 2;
+	}
 }
