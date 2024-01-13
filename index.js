@@ -9,12 +9,7 @@ if(css('--SupportsCSSHasSelector') != "true"){
 
 window.addEventListener('scroll', (e) => {
 	css('--HeroScrollPer',Math.min(window.scrollY/(window.innerHeight/2),1));
-	css('--ScrollY',window.scrollY);
 });
-
-// 🥚
-let emailUsernamesEggList = ['c','conmann','Superuser','Nobody','Chucklenuts','Punslinger','uninst','onlyCatMemes','hello','conmandev','goofly'];
-$('.atSymbol').title = $('.atSymbol').title.replace('[Please Enable Javascript]',emailUsernamesEggList[Math.floor(Math.random()*emailUsernamesEggList.length)]);
 
 $all('.iframeProjShowcase .iframeCont .zoomCont .minus').forEach(element => {
 	element.addEventListener('click', (e) => {

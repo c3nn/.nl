@@ -29,6 +29,9 @@ window.addEventListener('load', (e) => {
 		$('#loadingLinesCont').remove();
 	}, 950);
 });
+window.addEventListener('scroll', (e) => {
+	css('--ScrollY',window.scrollY);
+});
 
 let linesCont = $('#linesCont'),
 linesHoverCont = $('#linesCont .hoverCont');

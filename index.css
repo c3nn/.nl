@@ -1,7 +1,6 @@
 :root{
 	--HeroScrollPer: 0;
-	--ScrollY: 0;
-	background-position: 0 112vh;
+	--backgroundYOffset: 112vh;
 }
 
 /** Lines */
