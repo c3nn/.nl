@@ -66,7 +66,7 @@
 	--mwt: var(--mw);	/* % of the main width changed to a static value
 						when using mobile (for use only on font-size) */
 
-	--backgroundImg: url("/a/bgLow.avif");
+	--backgroundImg: url("/a/bg.avif");
 	background-color: var(--bg);
 	background-image: linear-gradient(color-mix(in srgb, var(--bg) 80%, transparent),transparent,color-mix(in srgb, var(--bg) 80%, transparent)), var(--backgroundImg);
 	background-size: 100vw 100vh, max(100vw, 300px) auto;
@@ -87,11 +87,6 @@
 :root[data-contrast] * :is(.accesCont:hover, .accesCont:has(input:focus), .socialButton:hover, .socialButton:focus){
 	filter: none !important;
 }
-@media (min-width: 1921px) {
-	:root{
-		--backgroundImg: url("/a/bg.avif");
-	}
-}
 @supports selector(:has(*)) {
 	:root{
 		--SupportsCSSHasSelector: true;
@@ -106,7 +101,7 @@ body{
 	align-items: center;
 	flex-direction: column;
 	width: 100%;
-	backdrop-filter: blur(10px);
+	backdrop-filter: blur(max(0.7vw, 3px));
 }
 main{
 	/* stops bug where random padding? (i think) makes a random margin
@@ -131,6 +126,7 @@ main{
 	top: 0;
 	opacity: 0;
 	z-index: 5138008;
+	background: #ffffff;
 }
 #tabButton:focus-visible{
 	opacity: 1;
