@@ -126,9 +126,9 @@ $('#linesMenuClose').addEventListener('click', () => {
 	});
 });
 
-window.addEventListener('keypress', e => {
+window.addEventListener('keypress', (e) => {
 	// 1-5 for menu options
-	if($('#linesMenuContCont').className == 'Open' && Number(e.key).betweenOrIs(0,5)){
+	if(Number(e.key).betweenOrIs(0,5) && $('#linesMenuContCont').className == 'Open'){
 		let num = Number(e.key)
 		if(num == 0){
 			num = 1;
@@ -143,6 +143,10 @@ window.addEventListener('keypress', e => {
 		}else{
 			$('#linesCont .hoverCont').click();
 		}
+	}
+	if(e.key == "Enter"){ // might be a problem later but idc lol
+		document.activeElement.click();
+		e.preventDefault();
 	}
 });
 

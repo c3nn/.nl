@@ -1,8 +1,8 @@
 import { $, $all, css } from "/lib/c3nnUtil.js";
 
-if(css('--SupportsCSSHasSelector') != "true"){
-	$('#enableJS').innerHTML = '( please use a chromium based browser for the best experience or a firefox version >120 )';
-	setInterval(() => {$('#enableJS').remove();}, 10000);
+if(css('--SupportsCSSHasSelector') != "true" || css('--SupportsCSSNesting') != "true"){
+	$('#enableJS').innerHTML = '( this site uses CSS Baseline 2023 features, please update your browser for the best experience )';
+	setInterval(() => { $('#enableJS').remove(); }, 10000);
 }else{
 	$('#enableJS').remove();
 }

@@ -45,7 +45,8 @@
 :root{
 	/* Controlled / used by JS */
 	--Mobile: false;
-	--SupportsCSSHasSelector: false;
+	--SupportsCSSHasSelector: "probably";
+	--SupportsCSSNesting: "probably";
 	--ItalicFont: 'Victor Mono';
 	--ScrollY: 0;
 
@@ -84,12 +85,17 @@
 	--bgAccent1: #fff;
 	--text: #fff;
 }
-:root[data-contrast] * :is(.accesCont:hover, .accesCont:has(input:focus), .socialButton:hover, .socialButton:focus){
+:root[data-contrast] * :is(.accesCont:is(:hover, :focus-within, .Contrast), .socialButton:is(:hover, :focus)), .Contrast{
 	filter: none !important;
 }
-@supports selector(:has(*)) {
+@supports selector(:has(*)){
 	:root{
 		--SupportsCSSHasSelector: true;
+	}
+}
+@supports selector(&){
+	:root{
+		--SupportsCSSNesting: true;
 	}
 }
 body{
@@ -127,9 +133,11 @@ main{
 	opacity: 0;
 	z-index: 5138008;
 	background: #ffffff;
-}
-#tabButton:focus-visible{
-	opacity: 1;
+
+	&:focus-visible{
+		opacity: 1;
+	}
+
 }
 
 /** Loading Lines */
@@ -143,16 +151,26 @@ main{
 	width: 100%;
 	pointer-events: none;
 	filter: brightness(0.2);
-}
-#loadingLinesCont .line{
-	position: relative;
-	background: var(--c);
-	box-shadow: 0 1px var(--c);
-	width: 100%;
-	height: 100%;
+
+	.line{
+		position: relative;
+		background: var(--c);
+		box-shadow: 0 1px var(--c);
+		width: 100%;
+		height: 100%;
+	}
+
 }
 
 /** Lines */
+@keyframes linesMove {
+	0%	 {bottom: 100%;}
+	100% {bottom: 0%;}
+}
+@keyframes linesWidth {
+	0%	 {width: var(--_width);}
+	100% {width: 0;}
+}
 #linesCont{
 	--_speed: 1.8s;
 	--_lines: 5;
@@ -165,47 +183,58 @@ main{
 	top: 0;
 	right: 0px;
 	pointer-events: none;
+	& *{
+		pointer-events: all;
+	}
+	.line{
+		--_height: calc(100% / var(--_lines));
+		background: var(--c);
+		height: var(--_height);
+		position: absolute;
+		animation: linesMove var(--_speed) linear infinite, linesWidth var(--_speed) var(--_lineWidthTimingFunct) infinite;
+		animation-delay: calc(var(--n) * var(--_speed) / var(--_lines));
+		right: 0;
+		transition: width ease 1s;
+
+		&[data-anim="hover"]{
+			--_lineWidthTimingFunct: ease-in;
+		}
+		&[data-anim="closed"]{
+			width: 0;
+			animation: none;
+		}
+	}
+	.hoverCont{
+		position: absolute;
+		right: 0;
+		top: 0;
+		/* background: rgba(34, 75, 186, 0.5); */
+		width: 90%;
+		height: 90%;
+		border-bottom-left-radius: 100%;
+		cursor: copy;
+	}
+	.hoverCont:focus-visible{
+		outline: none;
+	}
+	&:focus-within{
+		filter: brightness(0.7);
+	}
 }
-#linesCont *{
-	pointer-events: all;
-}
-@keyframes linesMove {
-	0%	 {bottom: 100%;}
-	100% {bottom: 0%;}
-}
-@keyframes linesWidth {
-	0%	 {width: var(--_width);}
-	100% {width: 0;}
-}
-#linesCont .line{
-	--_height: calc(100% / var(--_lines));
-	background: var(--c);
-	height: var(--_height);
-	position: absolute;
-	animation: linesMove var(--_speed) linear infinite, linesWidth var(--_speed) var(--_lineWidthTimingFunct) infinite;
-	animation-delay: calc(var(--n) * var(--_speed) / var(--_lines));
-	right: 0;
-	transition: width ease 1s;
-}
-#linesCont .line[data-anim="hover"]{
-	--_lineWidthTimingFunct: ease-in;
-}
-#linesCont .line[data-anim="closed"]{
-	width: 0;
-	animation: none;
-}
-#linesCont .hoverCont{
-	position: absolute;
-	right: 0;
-	top: 0;
-	/* background: rgba(34, 75, 186, 0.5); */
-	width: 90%;
-	height: 90%;
-	border-bottom-left-radius: 100%;
-	cursor: copy;
+:has(#linesMenuContCont.Open) #linesCont .hoverCont{
+	display: none;
 }
 
 /** Lines Menu */
+@keyframes miniMenuLinesWidthOpen {
+	0%  { width: 0;				right: 0; }
+	100%{ width: var(--_miniWidth);	right: calc(var(--_miniWidth) * -1); }
+}
+@keyframes miniMenuLinesWidth {
+	0%  { width: calc(var(--_miniWidth));								right: calc(var(--_miniWidth) * -1); }
+	50% { width: calc(var(--_miniWidth) + var(--_miniWidthAnimChange));	right: calc((var(--_miniWidth) + var(--_miniWidthAnimChange)) * -1); }
+	100%{ width: calc(var(--_miniWidth));								right: calc(var(--_miniWidth) * -1); }
+}
 #linesMenuCont{
 	--_menuOptions: 5;
 	position: fixed;
@@ -218,91 +247,105 @@ main{
 	justify-content: center;
 	align-items: left;
 	pointer-events: all;
+
+	.line{
+		--_width: 35vw;
+		--_miniLines: 4;
+		--_totalMiniLines: calc(var(--_menuOptions) * var(--_miniLines));
+		position: relative;
+		background: var(--bgAccent0);
+		height: 100%;
+		width: var(--_width);
+		transition:	width 1s cubic-bezier(.07,.5,0,.95),
+					box-shadow 0.2s cubic-bezier(.07,.5,0,.95);
+		box-shadow: -500px 0 0 0 var(--bgAccent0),
+					inset 0 0 0 0 var(--c);
+
+		&:is(:hover, :focus-within){
+			box-shadow: -500px 0 0 0 var(--bgAccent0),
+						inset 0 -4px 0 0 var(--c);
+			transition:	width 1s cubic-bezier(.07,.5,0,.95),
+						box-shadow 1s cubic-bezier(.07,.5,0,.95);
+			outline: none;
+		}
+
+		& a{
+			color: var(--text);
+			padding-top: 2.5vh;
+			font-family: 'Lobster', sans-serif;	
+			font-size: 10svh;
+			text-decoration: none;
+			width: 100%;
+			height: calc(100% - 2.5vh);
+			display: block;
+			text-align: right;
+
+			&::after{
+				content: '..';
+				color: transparent;
+			}
+		}
+
+		.miniLine{
+			--_miniWidthBase: calc(3vh + ((2vh / var(--_totalMiniLines)) * var(--tn)));
+			--_miniWidthAnimChange: 4vh;
+			--_miniWidth: var(--_miniWidthBase);
+			--_speed: 1s;
+			position: absolute;
+			right: calc(var(--_miniWidth) * -1);
+			top: calc((100% / var(--_miniLines)) * var(--ln));
+			width: var(--_miniWidth);
+			height: calc(100% / var(--_miniLines));
+			background: var(--c);
+			transition: background ease 0.3s;
+			box-shadow:	2px 0 var(--c),
+						0px 2px var(--c);
+			border-radius: 0 3px 3px 0;
+		}
+
+		&:hover .miniLine{
+			transition: background ease 0s;
+		}
+	}
+	
+	&:has(.line:hover,.line:focus-within) .line:not(:hover):not(:focus-within) .miniLine{
+		background: var(--bgAccent1);
+		box-shadow:	3px 0 var(--c),
+					0px 2px var(--bgAccent1);
+	}
 }
-#linesMenuCont .line{
-	--_width: 35vw;
-	--_miniLines: 4;
-	--_totalMiniLines: calc(var(--_menuOptions) * var(--_miniLines));
-	position: relative;
-	background: var(--bgAccent0);
-	height: 100%;
-	width: var(--_width);
-	transition:	width 1s cubic-bezier(.07,.5,0,.95),
-				box-shadow 0.2s cubic-bezier(.07,.5,0,.95);
-	box-shadow: -500px 0 0 0 var(--bgAccent0),
-				inset 0 0 0 0 var(--c);
-}
-#linesMenuCont .line:hover, #linesMenuCont .line:focus{
-	box-shadow: -500px 0 0 0 var(--bgAccent0),
-				inset 0 -4px 0 0 var(--c);
-	transition:	width 1s cubic-bezier(.07,.5,0,.95),
-				box-shadow 1s cubic-bezier(.07,.5,0,.95);
-}
-@keyframes miniMenuLinesWidthOpen {
-	0%  { width: 0;				right: 0; }
-	100%{ width: var(--_miniWidth);	right: calc(var(--_miniWidth) * -1); }
-}
-@keyframes miniMenuLinesWidth {
-	0%  { width: calc(var(--_miniWidth));								right: calc(var(--_miniWidth) * -1); }
-	50% { width: calc(var(--_miniWidth) + var(--_miniWidthAnimChange));	right: calc((var(--_miniWidth) + var(--_miniWidthAnimChange)) * -1); }
-	100%{ width: calc(var(--_miniWidth));								right: calc(var(--_miniWidth) * -1); }
-}
-#linesMenuCont .line .miniLine{
-	--_miniWidthBase: calc(3vh + ((2vh / var(--_totalMiniLines)) * var(--tn)));
-	--_miniWidthAnimChange: 4vh;
-	--_miniWidth: var(--_miniWidthBase);
-	--_speed: 1s;
-	position: absolute;
-	right: calc(var(--_miniWidth) * -1);
-	top: calc((100% / var(--_miniLines)) * var(--ln));
-	width: var(--_miniWidth);
-	height: calc(100% / var(--_miniLines));
-	background: var(--c);
-	transition: background ease 0.3s;
-	box-shadow:	2px 0 var(--c),
-				0px 2px var(--c);
-	border-radius: 0 3px 3px 0;
-}
-#linesMenuCont:has(.line:hover) .line:not(:hover) .miniLine{
-	background: var(--bgAccent1);
-	box-shadow:	3px 0 var(--c),
-				0px 2px var(--bgAccent1);
-}
-#linesMenuCont .line:hover .miniLine{
-	transition: background ease 0s;
-}
-#linesMenuCont .line a{
-	color: var(--text);
-	padding-top: 2.5vh;
-	font-family: 'Lobster', sans-serif;	
-	font-size: 10svh;
-	text-decoration: none;
-	width: 100%;
-	height: calc(100% - 2.5vh);
-	display: block;
-	text-align: right;
-}
-#linesMenuCont .line a::after{
-	content: '__';
-	color: transparent;
-}
-#linesMenuContCont.Closed, #linesMenuContCont.Closed *{
+/* focus-within so you can tab to see it */
+#linesMenuContCont.Closed:not(:focus-within){
 	pointer-events: none;
+
+	& *{
+		pointer-events: none;
+	}
+
+	#linesMenuCont .line{
+		left: calc((var(--_width) * -1) - 6vh);
+		transition: left 1s cubic-bezier(1,0,.76,.75);
+	}
+
+	#linesMenuClose{
+		display: none;
+	}
 }
-#linesMenuContCont.Closed #linesMenuCont .line{
-	left: calc((var(--_width) * -1) - 6vh);
-	transition: left 1s cubic-bezier(1,0,.76,.75);
-}
-#linesMenuContCont.Open #linesMenuCont .line{
+#linesMenuContCont:is(.Open,:focus-within) #linesMenuCont .line{
 	left: 0;
 	transition: left 1s cubic-bezier(.06,.5,0,1.09);
-}
-#linesMenuContCont.Open #linesMenuCont .line .miniLine{
-	--_firstAnimDuration: 0.8s;
-	animation:	miniMenuLinesWidthOpen var(--_firstAnimDuration) forwards cubic-bezier(1,0,.76,.75),
-				miniMenuLinesWidth var(--_speed) infinite ease-in-out;
-	animation-delay: 0s,
-					calc((var(--tn) / var(--_totalMiniLines) * var(--_speed)) + var(--_firstAnimDuration));
+	
+	& a{
+		outline: none;
+	}
+
+	.miniLine{
+		--_firstAnimDuration: 0.8s;
+		animation:	miniMenuLinesWidthOpen var(--_firstAnimDuration) forwards cubic-bezier(1,0,.76,.75),
+					miniMenuLinesWidth var(--_speed) infinite ease-in-out;
+		animation-delay: 0s,
+						calc((var(--tn) / var(--_totalMiniLines) * var(--_speed)) + var(--_firstAnimDuration));
+	}
 }
 #linesMenuClose{
 	position: fixed;
@@ -310,12 +353,20 @@ main{
 	left: 0;
 	width: 100%;
 	height: 100%;
-}
-#linesMenuClose .symbol{
-	display: none;
+	&:focus-visible{
+		background: #00000070;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 30em;
+	}
+	
+	&:not(:focus-visible) .symbol{
+		display: none;
+	}
 }
 #linesMenuContCont.Closed #linesMenuClose{
-	display: none;
+	display: none; /* stops it from being tabbable when you can just tab off of it to auto-close */
 }
 
 /** Footer */
@@ -345,27 +396,36 @@ footer{
 	border-radius: calc(0.01 * var(--_mwt));
 	font-size: calc(0.01 * var(--_mwt));
 	transition: filter 0.4s ease;
-}
-.accesCont span{
-	text-align: center;
-	padding: calc(0.01 * var(--_mwt));
-	padding-top: 0;
-	padding-bottom: 0;
-	color: var(--bgAccent1);
-	font-size: inherit;
-}
-.accesCont input{
-	background: var(--bgAccent1);
-	border: none;
-	border-radius: calc(0.002 * var(--_mwt));
-	padding: calc(0.002 * var(--_mwt));
-	font-size: inherit;
-	cursor: pointer;
-}
-:is(.accesCont:hover, .accesCont:has(input:focus)):not(.accesCont.Contrast){
-	filter: brightness(3);
+
+	& span{
+		text-align: center;
+		padding: calc(0.01 * var(--_mwt));
+		padding-top: 0;
+		padding-bottom: 0;
+		color: var(--bgAccent1);
+		font-size: inherit;
+	}
+
+	& input{
+		background: var(--bgAccent1);
+		border: none;
+		border-radius: calc(0.002 * var(--_mwt));
+		padding: calc(0.002 * var(--_mwt));
+		font-size: inherit;
+		cursor: pointer;
+	}
+
+	&:is(:hover, :focus-within):not(.Contrast){
+		filter: brightness(3);
+	}
 }
 /* social links */
+#socialCont:focus-visible{
+	outline: none;
+	> .socialButton{
+		box-shadow: 1px 1px 0 3px var(--accent1);
+	}
+}
 .socialButton{
 	display: flex;
 	justify-content: center;
@@ -376,20 +436,24 @@ footer{
 	fill: var(--bgAccent0);
 	border-radius: 15%;
 	transition: filter 0.4s ease;
-}
-.socialButton:hover,.socialButton:focus{
-	filter: brightness(3);
-}
-.socialButton .symbol{
-	transition: filter 0.4s ease;
-}
-:is(.socialButton:hover, .socialButton:focus) .symbol{
-	filter: brightness(calc(1/3));
-	text-shadow: 0 0 calc(0.02 * var(--mw)) #fff;
-}
-.socialButton svg{
-	height: 90%;
-	aspect-ratio: 1/1;
+
+	&:is(:hover,:focus){
+		filter: brightness(3);
+
+		.symbol{
+			filter: brightness(calc(1/3));
+			text-shadow: 0 0 calc(0.02 * var(--mw)) #fff;
+		}
+	}
+
+	.symbol{
+		transition: filter 0.4s ease;
+	}
+
+	& svg{
+		height: 90%;
+		aspect-ratio: 1/1;
+	}
 }
 
 /** General */
@@ -397,9 +461,10 @@ footer{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-.flexTemplate.Column{
-	flex-direction: column;
+	
+	&.Column{
+		flex-direction: column;
+	}
 }
 .pageSpace{
 	display: flex;
@@ -411,11 +476,12 @@ a:any-link{
 	text-decoration: underline wavy;
 	text-decoration-thickness: 0.1em;
 	text-decoration-color: var(--bgAccent1);
+	
+	:visited{
+		text-decoration-color: var(--bgAccent1);
+	}
 }
-a:visited{
-	text-decoration-color: var(--bgAccent1);
-}
-h1 a, h2 a, h3 a{
+:is(h1, h2, h3) a{
 	text-decoration: underline;
 	text-decoration-color: var(--bgAccent1);
 }
@@ -433,9 +499,10 @@ h1 a, h2 a, h3 a{
 	text-align: center;
 	background: var(--bgAccent0);
 	transition: filter 0.4s ease;
-}
-.circleButtonHighlight:hover, .circleButtonHighlight:focus{
-	filter: brightness(3);
+
+	&:is(:hover,:focus){
+		filter: brightness(3);
+	}
 }
 h1, h2, h3{
 	font-size: calc(0.06 * var(--mwt));
@@ -469,11 +536,6 @@ p{
 	}
 
 	/** Lines */
-	#linesCont{
-		--_lineWidthTimingFunct: cubic-bezier(0,1.3,1,.3);
-		--_width: 1.5vw;
-		--_contHeight: 100svh;
-	}
 	@keyframes linesMove {
 		0%	 {bottom: 100%;}
 		100% {bottom: calc(var(--_height) * -1);}
@@ -482,18 +544,42 @@ p{
 		0%	 {width: var(--_width);}
 		100% {width: var(--_width);}
 	}
-	#linesCont .line{
-		--_height: calc(100% / (var(--_lines) - 1));
-		overflow: hidden;
-	}
-	#linesCont .hoverCont{
-		height: 100%;
-		width: calc(3 * var(--_width));
+	#linesCont{
+		--_lineWidthTimingFunct: cubic-bezier(0,1.3,1,.3);
+		--_width: 1.5vw;
+		--_contHeight: 100svh;
+
+		.line{
+			--_height: calc(100% / (var(--_lines) - 1));
+			overflow: hidden;
+		}
+
+		.hoverCont{
+			height: 100%;
+			width: calc(3 * var(--_width));
+		}
 	}
 
 	/** Lines Menu */
-	#linesMenuCont .line .miniLine{
-		display: none;
+	@keyframes linesMenuClose {
+		0% {width: 0;}
+	}
+	@keyframes linesMenuCloseSymbol {
+		0% {rotate: 45deg;}
+	}
+	#linesMenuContCont:is(.Open,:focus-within) #linesMenuCont{
+		left: 0;
+		transition: left 1s cubic-bezier(.06,.5,0,1);
+		animation: linesMenuClose 1s ease forwards;
+
+		.line{
+			left: 0;
+			transition: left 1s cubic-bezier(.06,.5,0,1);
+		}
+
+		.symbol{
+			animation: linesMenuCloseSymbol 1s ease forwards;
+		}
 	}
 	#linesMenuCont .line{
 		--_width: 100vw;
@@ -501,16 +587,22 @@ p{
 					inset 0 -4px 0 0 var(--c);
 		transition:	width 1s cubic-bezier(.07,.5,0,.95),
 					box-shadow 1s cubic-bezier(.07,.5,0,.95);
-	}
-	#linesMenuContCont.Open #linesMenuCont .line{
-		left: 0;
-		transition: left 1s cubic-bezier(.06,.5,0,1);
-	}
-	#linesMenuCont .line a{
-		text-align: center;
-	}
-	#linesMenuCont .line a::after{
-		content: "";
+
+		.miniLine{
+			display: none;
+		}
+
+		& a{
+			text-align: center;
+
+			&::after{
+				content: "";
+			}
+
+			&:focus-visible{
+				text-decoration: underline;
+			}
+		}
 	}
 	#linesMenuClose{
 		position: fixed;
@@ -526,23 +618,16 @@ p{
 		cursor: pointer;
 		background: black;
 		overflow: hidden;
-	}
-	#linesMenuClose .symbol{
-		display: block;
-		font-size: 100%;
-		position: relative;
-	}
-	@keyframes linesMenuClose {
-		0% {width: 0;}
-	}
-	#linesMenuContCont.Open #linesMenuClose{
-		animation: linesMenuClose 1s ease forwards;
-	}
-	@keyframes linesMenuCloseSymbol {
-		0% {rotate: 45deg;}
-	}
-	#linesMenuContCont.Open #linesMenuClose .symbol{
-		animation: linesMenuCloseSymbol 1s ease forwards;
+
+		&:focus-visible{
+			font-size: 1em;
+		}
+
+		&:not(:focus-visible) .symbol{
+			display: block;
+			font-size: 100%;
+			position: relative;
+		}
 	}
 
 	/** Footer */
