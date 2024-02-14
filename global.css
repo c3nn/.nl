@@ -1,16 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@1,500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Signika+Negative&display=swap&display=swap'); /* used if cursive is off */
-@import url("/a/3rd/materialSymbolsRounded.css");
-.symbol{
-	font-variation-settings:
-	'FILL' 0,
-	'wght' 400,
-	'GRAD' 0,
-	'opsz' 24;
-	user-select: none;
-}
+@import url("a/3rd/globalGoogleFonts.css");
+@import url("a/3rd/materialSymbolsRounded.css");
 
 /*
 	* HAY this is a little area for code / design guidelines
@@ -20,7 +9,7 @@
 		Or is a descriptor included for another class
 			ex: #hero h1 .Blue{} && #hero h1 .Red{} ||
 				|| #menu.Open && #menu.Closed
-	
+
 	III. underscore for local variables
 		ex: --_contHeight
 
@@ -47,37 +36,49 @@
 	--Mobile: false;
 	--SupportsCSSHasSelector: "probably";
 	--SupportsCSSNesting: "probably";
-	--ItalicFont: 'Victor Mono';
+	--ItalicFont: 'Victor Mono Italic';
 	--ScrollY: 0;
 
 	/* Colors */
 	--bg: #030100;
 	--bgAccent0: #060606;
 	--bgAccent1: #252525;
-	--accent0: #ffd4ac;
-	--accent1: #d8a473;
+	--accent0: #dfb894;
+	--accent1: #c38851;
 	--text: var(--accent0);
 	--rgb0: #c71b1b;
 	--rgb1: #cd732a;
 	--rgb2: #cfd941;
 	--rgb3: #449a31;
 	--rgb4: #106193;
+	--codeBg: #1f1f1f;
+	--codeWhite: #dee0ef;
+	--codeGray: #8d8f9e;
+	--codeBlue: #a0b6e8;
+	--codeLightBlue: #aac9d4;
+	--codePeach: #d6b4b4;
+	--codePurple: #a392dc;
+	--codeGreen: #98c379;
 
 	--mw: min(1300px, 90vw); /* % of the main width */
 	--mwt: var(--mw);	/* % of the main width changed to a static value
 						when using mobile (for use only on font-size) */
 
-	--backgroundImg: url("/a/bg.avif");
+	--backgroundImg: url("a/bg.avif"); /* use "Very Slow" encoding setting on
+										paint.net for .avif's or it breaks firefox */
 	background-color: var(--bg);
 	background-image: linear-gradient(color-mix(in srgb, var(--bg) 80%, transparent),transparent,color-mix(in srgb, var(--bg) 80%, transparent)), var(--backgroundImg);
 	background-size: 100vw 100vh, max(100vw, 300px) auto;
 	background-repeat:  repeat-y, repeat-y;
-	background-position: left calc(var(--ScrollY) * 1px), left calc((var(--ScrollY) / 3) * 1px + var(--backgroundYOffset, 0px));
+	background-position: left calc(var(--ScrollY) * 1px), left calc((var(--ScrollY) / 2.25) * 1px + var(--backgroundYOffset, 0px));
+	
 	color: var(--text);
 	font-family: 'Red Hat Text', sans-serif;
+	
 	padding: 0;
 	margin: 0;
 	overflow-x: hidden;
+	scroll-behavior: smooth;
 }
 :root[data-contrast], .accesCont.Contrast{
 	--bg: #000;
@@ -110,9 +111,8 @@ body{
 	backdrop-filter: blur(max(0.7vw, 3px));
 }
 main{
-	/* stops bug where random padding? (i think) makes a random margin
-	to the right of the page (on mobile especially)  */
-	overflow-x: hidden;
+	overflow-x: hidden; /* stops bug where random padding? (i think) makes a random margin
+						to the right of the page (on mobile especially)  */
 	width: var(--mw);
 }
 ::-webkit-scrollbar{
@@ -183,6 +183,8 @@ main{
 	top: 0;
 	right: 0px;
 	pointer-events: none;
+	background: none;
+	
 	& *{
 		pointer-events: all;
 	}
@@ -194,7 +196,9 @@ main{
 		animation: linesMove var(--_speed) linear infinite, linesWidth var(--_speed) var(--_lineWidthTimingFunct) infinite;
 		animation-delay: calc(var(--n) * var(--_speed) / var(--_lines));
 		right: 0;
-		transition: width ease 1s;
+		transition: width ease 1s, opacity ease 0.2s;
+		opacity: 0.8;
+		backdrop-filter: blur(10px);
 
 		&[data-anim="hover"]{
 			--_lineWidthTimingFunct: ease-in;
@@ -217,12 +221,12 @@ main{
 	.hoverCont:focus-visible{
 		outline: none;
 	}
-	&:focus-within{
-		filter: brightness(0.7);
-	}
 }
 :has(#linesMenuContCont.Open) #linesCont .hoverCont{
 	display: none;
+}
+#linesCont:has(.hoverCont:hover) .line{
+	opacity: 1;
 }
 
 /** Lines Menu */
@@ -256,16 +260,15 @@ main{
 		background: var(--bgAccent0);
 		height: 100%;
 		width: var(--_width);
-		transition:	width 1s cubic-bezier(.07,.5,0,.95),
-					box-shadow 0.2s cubic-bezier(.07,.5,0,.95);
+		transition:	width 1s cubic-bezier(.07,.5,0,.95);
 		box-shadow: -500px 0 0 0 var(--bgAccent0),
 					inset 0 0 0 0 var(--c);
+		cursor: pointer;
 
 		&:is(:hover, :focus-within){
 			box-shadow: -500px 0 0 0 var(--bgAccent0),
 						inset 0 -4px 0 0 var(--c);
-			transition:	width 1s cubic-bezier(.07,.5,0,.95),
-						box-shadow 1s cubic-bezier(.07,.5,0,.95);
+			transition:	width 1s cubic-bezier(.07,.5,0,.95);
 			outline: none;
 		}
 
@@ -314,8 +317,7 @@ main{
 					0px 2px var(--bgAccent1);
 	}
 }
-/* focus-within so you can tab to see it */
-#linesMenuContCont.Closed:not(:focus-within){
+#linesMenuContCont.Closed:not(:focus-within){ /* focus-within so you can tab to see it */
 	pointer-events: none;
 
 	& *{
@@ -333,8 +335,14 @@ main{
 }
 #linesMenuContCont:is(.Open,:focus-within) #linesMenuCont .line{
 	left: 0;
-	transition: left 1s cubic-bezier(.06,.5,0,1.09);
+	transition: left 1s cubic-bezier(.06,.5,0,1.09),
+				box-shadow 1s cubic-bezier(.07,.5,0,.95);
 	
+	&:is(:hover, :focus-within){
+		transition:	left 1s cubic-bezier(.06,.5,0,1.09),
+					box-shadow 0s linear; /* specificity :/ */
+	}
+
 	& a{
 		outline: none;
 	}
@@ -366,7 +374,8 @@ main{
 	}
 }
 #linesMenuContCont.Closed #linesMenuClose{
-	display: none; /* stops it from being tabbable when you can just tab off of it to auto-close */
+	display: none; /* stops it from being tabbable when
+					you can just tab off of it to auto-close */
 }
 
 /** Footer */
@@ -481,10 +490,12 @@ a:any-link{
 		text-decoration-color: var(--bgAccent1);
 	}
 }
-:is(h1, h2, h3) a{
+:is(h1, h2, h3, h4) a{
 	text-decoration: underline;
 	text-decoration-color: var(--bgAccent1);
 }
+/* selection & -moz-selection have
+	to be separate, breaks if not */
 *::selection{
 	background: var(--accent1);
 	color: var(--bg);
@@ -504,8 +515,11 @@ a:any-link{
 		filter: brightness(3);
 	}
 }
-h1, h2, h3{
-	font-size: calc(0.06 * var(--mwt));
+h1{
+	text-align: center;
+}
+h1, h2, h3, h4{
+	font-size: calc(0.08 * var(--mwt));
 	font-family: 'Lobster', sans-serif;
 	font-style: italic;
 	font-weight: 100;
@@ -513,17 +527,98 @@ h1, h2, h3{
 	margin-bottom: calc(0.02 * var(--mw));
 	cursor: default;
 }
-h2, h3{
-	font-size: calc(0.03 * var(--mwt));
-	margin-bottom: calc(0.03 * var(--mw));
+h2, h3, h4{
+	font-size: calc(0.06 * var(--mwt));
+	margin-bottom: calc(0.02 * var(--mw));
 }
-h3{
+h3, h4{
+	font-size: calc(0.03 * var(--mwt));
+	margin-bottom: 0;
+}
+h4{
 	font-size: calc(0.02 * var(--mwt));
 }
 p{
 	font-size: calc(0.015 * var(--mwt));
 	font-family: var(--ItalicFont);
 	font-style: italic;
+}
+dl{
+	padding-left: calc(0.05 * var(--mw));
+}
+dt,dd{
+	display: list-item;
+	list-style-type: lower-alpha;
+	list-style-position: inside;
+	font-family: var(--ItalicFont);
+	font-size: calc(0.016 * var(--mwt));
+	margin: calc(0.004 * var(--mw));
+}
+dd{
+	font-size: calc(0.012 * var(--mwt));
+	list-style-type: decimal;
+	padding-left: calc(0.025 * var(--mwt));
+}
+img{
+	display: block;
+	--w: 0.5;
+	width: calc(var(--w) * var(--mw));
+	height: auto;
+	margin: 0 auto 0 auto;
+	border: solid 1px var(--accent0);
+	border-radius: calc(0.01 * var(--mw));
+}
+img + .imgDesc{
+	margin: 0 auto auto auto;
+	padding: 0.3em;
+	width: fit-content;
+	border: solid 1px var(--accent0);
+	border-top: none;
+	border-radius: 0 0 0.6em 0.6em;
+	background: var(--bg);
+}
+code{
+	background-color: var(--codeBg);
+	border-radius: 0.1em;
+	font-family: 'Victor Mono'; /*	different from 'Victor Mono Italic'
+									used in var(--ItalicFont) */
+	font-style: normal;
+	padding: 0.05em 0.2em;
+	white-space: nowrap;
+
+	color: var(--codeWhite); /* defaults to white */
+
+	& span{
+		--synColor: var(--codeWhite); /* defaults to white */
+		color: var(--synColor);
+	}
+	.gray{
+		--synColor: var(--codeGray);
+	}
+	.blue{
+		--synColor: var(--codeBlue);
+	}
+	.lightBlue{
+		--synColor: var(--codeLightBlue);
+	}
+	.peach{
+		--synColor: var(--codePeach);
+	}
+	.purple{
+		--synColor: var(--codePurple);
+	}
+	.green{
+		--synColor: var(--codeGreen);
+	}
+}
+kbd {
+	display: inline-block;
+	background-color: var(--bgAccent1);
+	border: 1px solid var(--accent0);
+	border-radius: 0.25em;
+	line-height: 1;
+	padding: 0.15em 0.25em;
+	white-space: nowrap;
 }
 
 /** Mobile */
@@ -567,17 +662,13 @@ p{
 	@keyframes linesMenuCloseSymbol {
 		0% {rotate: 45deg;}
 	}
-	#linesMenuContCont:is(.Open,:focus-within) #linesMenuCont{
-		left: 0;
-		transition: left 1s cubic-bezier(.06,.5,0,1);
-		animation: linesMenuClose 1s ease forwards;
-
-		.line{
+	#linesMenuContCont.Open{
+		#linesMenuCont .line{
 			left: 0;
 			transition: left 1s cubic-bezier(.06,.5,0,1);
 		}
 
-		.symbol{
+		#linesMenuClose .symbol{
 			animation: linesMenuCloseSymbol 1s ease forwards;
 		}
 	}
@@ -618,15 +709,21 @@ p{
 		cursor: pointer;
 		background: black;
 		overflow: hidden;
+		animation: linesMenuClose 1s ease forwards;
 
+		font-size: 1em;
 		&:focus-visible{
-			font-size: 1em;
+			font-size: 1em; /* specificity :/ */
 		}
 
-		&:not(:focus-visible) .symbol{
+		.symbol{
 			display: block;
 			font-size: 100%;
 			position: relative;
+			color: var(--text);
+		}
+		&:not(:focus-visible) .symbol{
+			display: inline;
 		}
 	}
 

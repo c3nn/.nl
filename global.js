@@ -207,3 +207,15 @@ contrastButtons.forEach(element => {
 if(hasCookie('accesContrast') == true || prefersContrast == true){
 	toggleContrast();
 }
+
+// backup for browsers w/out CSS nesting (couldn't test but should work)
+if (css('--SupportsCSSNesting') != "true"){
+    console.error('CSS Nesting check failed; loading backup css...')
+	
+    let link  = document.createElement('link');
+    link.rel  = 'stylesheet';
+    link.type = 'text/css';
+    link.href = '/globalNoNestingBackup.css';
+    link.media = 'all';
+    $('head').appendChild(link);
+}

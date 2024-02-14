@@ -2,7 +2,7 @@ import { $, $all, css } from "/lib/c3nnUtil.js";
 
 if(css('--SupportsCSSHasSelector') != "true" || css('--SupportsCSSNesting') != "true"){
 	$('#enableJS').innerHTML = '( this site uses CSS Baseline 2023 features, please update your browser for the best experience )';
-	setInterval(() => { $('#enableJS').remove(); }, 10000);
+	setTimeout(() => { $('#enableJS').remove(); }, 20000);
 }else{
 	$('#enableJS').remove();
 }
