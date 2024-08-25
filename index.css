@@ -1,0 +1,14 @@
+:root{
+	/* Updated by JS */
+	--screenWidth: 0;
+	--screenHeight: 0;
+}
+
+#heroBgCanvas{
+	width: 100vw;
+	height: 100vh;
+	background: black;
+	top: 0;
+	left: 0;
+	position: fixed;
+}
