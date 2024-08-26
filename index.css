@@ -1,14 +1,38 @@
 :root{
 	/* Updated by JS */
-	--screenWidth: 0;
-	--screenHeight: 0;
+	--circleRowSpacing: 0;
+	--circleColumnSpacing: 0;
 }
 
 #heroBgCanvas{
 	width: 100vw;
 	height: 100vh;
 	background: black;
-	top: 0;
-	left: 0;
+	top: calc(mod(100vh, var(--circleRowSpacing))/2);
+	left: calc(mod(100vw, var(--circleColumnSpacing))/2);
 	position: fixed;
+}
+
+#h1Cont{
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	text-align: center;
+	translate: -50% -10%;
+	line-height: min(3em, 7.5vw);
+	text-wrap: nowrap;
+	white-space: nowrap;
+
+	& h1{
+		font-size: min(6em, 15vw);
+		font-family: "Bahnschrift", "Red Hat Test", "Arial";
+		font-weight: normal;
+	}
+	& h2{
+		position: relative;
+		font-size: min(1.875em, 4.69vw);
+		font-family: "DM Serif Display", "Bahnschrift";
+		font-weight: 100;
+		left: -5.1em;
+	}
 }

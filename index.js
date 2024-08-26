@@ -1,4 +1,4 @@
-import { $, css } from "/lib/c3nnUtil.js";
+import { $, css } from "./lib/c3nnUtil.js";
 
 const heroBgCanvas = $('#heroBgCanvas'),
 	c = heroBgCanvas.getContext('2d', { alpha: false });
@@ -12,6 +12,8 @@ const circleRadius = 5,
 	noiseSizeAmp = 6,
 	xOffsetSpeed = 0.01,
 	yOffsetSpeed = 0.005;
+css("--circleColumnSpacing", circleColumnSpacing + "px");
+css("--circleRowSpacing", circleRowSpacing + "px");
 
 var xOffset = 0,
 	yOffset = 0;
@@ -24,17 +26,14 @@ var circleColumns,
 	then = Date.now()-10;
 
 function windowResize(){
-	heroBgCanvas.width = window.innerWidth;
-	heroBgCanvas.height = window.innerHeight;
+	heroBgCanvas.width = Math.min(window.innerWidth, 2560);
+	heroBgCanvas.height = Math.min(window.innerHeight, 1440);
 	
 	circleColumns = Math.floor(heroBgCanvas.width / circleColumnSpacing);
 	circleRows = Math.floor(heroBgCanvas.height / circleRowSpacing);
 	loops = circleColumns * circleRows;
 
 	c.fillStyle = circleColor;
-
-	css('--screenWidth',window.innerWidth);
-	css('--screenHeight',window.innerHeight);
 	
 	return;
 }
@@ -59,7 +58,7 @@ function update(){
 			y = preY - (perlin.get(preX*noiseScale+xOffset, preY*noiseScale-yOffset)+1)*noiseMoveAmp,
 			radius = circleRadius + perlin.get(preX*noiseScale+xOffset, preY*noiseScale-yOffset)*noiseSizeAmp;
 
-			c.arc(x, y, radius, 0, Math.PI*2);
+			c.arc(x.limitDec(1), y.limitDec(1), radius.limitDec(1), 0, Math.PI*2);
 			c.fill();
 		}
 
@@ -71,7 +70,7 @@ function update(){
 
 	setTimeout(() => {
 		window.requestAnimationFrame(update);
-	}, 50-deltaTime)
+	}, 80-deltaTime)
 	return;
 }
 window.requestAnimationFrame(update);

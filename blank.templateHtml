@@ -3,10 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Conmann @c3nn c3[title]</title>
+	<title>Conmann @c3nn c3[pageNameNoIndex]</title>
 	<meta name="description" content="Stop on by and take a gander' kind stranger">
 	<meta name="robots" content="all">
-	<link rel="canonical" href="https://c3nn.com/c3[pageName]">
+	<link rel="canonical" href="https://c3nn.com/c3[pageNameNoIndex]">
 	<link rel="shortcut icon" href="a/favicon.png" type="image/x-icon">
 	<link rel="stylesheet" href="global.css">
 	<link rel="stylesheet" href="c3[pageName].css">

@@ -16,9 +16,9 @@ for file in listFilesInFolder(srcFolderPath):
 	temp = templateHtml
 	temp = temp.replace("c3[content]", srcFile.read())
 	if file == "index.html":
-		temp = temp.replace("c3[title]", "")
+		temp = temp.replace("c3[pageNameNoIndex]", "")
 	else:
-		temp = temp.replace("c3[title]", "/ " + pageName)
+		temp = temp.replace("c3[pageNameNoIndex]", "/ " + pageName)
 	temp = temp.replace('c3[pageName]', pageName)
 
 	newFile = open(file, "w")
