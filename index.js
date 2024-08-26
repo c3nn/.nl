@@ -27,7 +27,7 @@ var circleColumns,
 
 function windowResize(){
 	heroBgCanvas.width = Math.min(window.innerWidth, 2560);
-	heroBgCanvas.height = Math.min(window.innerHeight, 1440);
+	heroBgCanvas.height = Math.min(window.innerHeight, 2560/(window.innerWidth/window.innerHeight));
 	
 	circleColumns = Math.floor(heroBgCanvas.width / circleColumnSpacing);
 	circleRows = Math.floor(heroBgCanvas.height / circleRowSpacing);
