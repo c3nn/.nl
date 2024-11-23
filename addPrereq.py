@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 def listFilesInFolder(folder_path):
     files = []
@@ -17,9 +18,12 @@ for file in listFilesInFolder(srcFolderPath):
 	temp = temp.replace("c3[content]", srcFile.read())
 	if file == "index.html":
 		temp = temp.replace("c3[pageNameNoIndex]", "")
+		temp = temp.replace("c3[pageNameNoIndexNoSpace]", "")
 	else:
 		temp = temp.replace("c3[pageNameNoIndex]", "/ " + pageName)
+		temp = temp.replace("c3[pageNameNoIndexNoSpace]", "/" + pageName)
 	temp = temp.replace('c3[pageName]', pageName)
+	temp = temp.replace('c3[dateTime]', datetime.now().strftime("%B")[:3] + datetime.now().strftime(". %d, %Y at %H:%M:%S"))
 
 	newFile = open(file, "w")
 	newFile.write(temp)

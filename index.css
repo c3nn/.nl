@@ -14,6 +14,8 @@
 }
 
 #h1Cont{
+	/* lots of magic numbers here, but i think i
+	did the math for them so don't worry about it */
 	position: fixed;
 	left: 50%;
 	top: 50%;
@@ -25,7 +27,7 @@
 
 	& h1{
 		font-size: min(6em, 15vw);
-		font-family: "Bahnschrift", "Red Hat Test", "Arial";
+		font-family: "Bahnschrift", "Red Hat Text", "Arial";
 		font-weight: normal;
 	}
 	& h2{
