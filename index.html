@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<!-- Generated from Template Page on Nov. 23, 2024 at 00:11:36 -->
+	<!-- Generated from Template Page on Nov. 24, 2024 at 17:50:55 -->
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Conmann @c3nn </title>
@@ -13,28 +13,18 @@
 	<link rel="stylesheet" href="index.css">
 </head>
 <body>
-
-	<!-- <script src='a/3rd/perlin.js'></script> -->
-
-<!-- <canvas width="1" height="1" id="heroBgCanvas"></canvas> -->
-
-<div id="h1Cont">
-	<h1>Conmann</h1>
-	<h2>@c3nn</h2>
-</div>
-
-	<div id="barsCont">
+	<div id="barsCont" loading>
 		<div class="bar" style="--c:var(--rgb0);--n: 0;"></div>
 		<div class="bar" style="--c:var(--rgb1);--n: 1;"></div>
 		<div class="bar" style="--c:var(--rgb2);--n: 2;"></div>
 		<div class="bar" style="--c:var(--rgb3);--n: 3;"></div>
 		<div class="bar" style="--c:var(--rgb4);--n: 4;"></div>
 		<div id="linksCont">
-			<a href="/about" style="--n: 4;" >About</a>
-			<a href="/archive" style="--n: 3;" >Archive</a>
+			<a href="/about" onclick="return trans('/about')" style="--n: 4;" >About</a>
+			<a href="/archive" onclick="return trans('/archive')" role="button" style="--n: 3;" >Archive</a>
 			<a id="barsContactPageButton" href="javascript:;" role="button" style="--n: 2;" >Contact</a>
-			<a href="/portfolio" style="--n: 1;" >Portfolio</a>
-			<a href="/" style="--n: 0;" >Home</a>
+			<a href="/portfolio" onclick="return trans('/portfolio')" style="--n: 1;" >Portfolio</a>
+			<a href="/" onclick="return trans('/')" style="--n: 0;" >Home</a>
 		</div>
 		<footer>
 			<div id="socialLinksCont">
@@ -86,6 +76,16 @@
 		</footer>
 	</div>
 	<script type="module" src="global.js"></script>
+
+	<!-- <script src='a/3rd/perlin.js'></script> -->
+
+<!-- <canvas width="1" height="1" id="heroBgCanvas"></canvas> -->
+
+<div id="h1Cont">
+	<h1>Conmann</h1>
+	<h2>@c3nn</h2>
+</div>
+
 	<script type="module" src="index.js"></script>
 </body>
 </html>
